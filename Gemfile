@@ -77,3 +77,11 @@ gem "rsolr", ">= 1.0", "< 3"
 gem "bootstrap", "\~\>\ 5.1"
 gem "sassc-rails", "~> 2.1"
 gem "config"
+
+# For Capistrano
+group :deployment do
+  gem 'capistrano-maintenance', '~> 1.2', require: false
+  gem 'capistrano-passenger'
+  gem 'capistrano-rails'
+  gem 'dlss-capistrano', require: false
+end
