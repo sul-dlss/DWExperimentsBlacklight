@@ -78,9 +78,12 @@ gem "bootstrap", "\~\>\ 5.1"
 gem "sassc-rails", "~> 2.1"
 gem "config"
 gem "dotenv"
-
+ 
 # For Capistrano
 group :deployment do
+  gem 'capistrano'
+  gem 'capistrano-rvm'
+  gem 'capistrano-bundler'
   gem 'capistrano-maintenance', '~> 1.2', require: false
   gem 'capistrano-passenger'
   gem 'capistrano-rails'
