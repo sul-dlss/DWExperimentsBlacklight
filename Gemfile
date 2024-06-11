@@ -78,6 +78,7 @@ gem "bootstrap", "\~\>\ 5.1"
 gem "sassc-rails", "~> 2.1"
 gem "config"
 gem "dotenv"
+gem "pg"
  
 # For Capistrano
 group :deployment do
