@@ -122,10 +122,10 @@ class CatalogController < ApplicationController
     config.add_facet_field 'provider_ssi', label: 'Provider'
     #config.add_facet_field 'funders_ssim', label: 'Funders'
     config.add_facet_field 'doi_ssi', label: 'DOI'
-    config.add_facet_field 'creators_tsim', label: 'Creators'
-    config.add_facet_field 'funders_tsim', label: 'Funders'
-    config.add_facet_field 'funders_ids_tsim', label: 'Funder Ids'
-    config.add_facet_field 'creators_ids_tsim', label: 'Creator Ids'
+    config.add_facet_field 'creators_ssim', label: 'Creators'
+    config.add_facet_field 'funders_ssim', label: 'Funders'
+    config.add_facet_field 'funders_ids_sim', label: 'Funder Ids'
+    config.add_facet_field 'creators_ids_sim', label: 'Creator Ids'
 
 
 
@@ -166,7 +166,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'translate_title_tsim', label: 'Translated Title'
     config.add_show_field 'other_title_tsim', label: 'Other Title'
 
-    config.add_show_field 'creators_tsim', label: 'Creators'
+    config.add_show_field 'creators_ssim', label: 'Creators'
     #config.add_show_field 'creators_struct_ss', label: 'Creator Info'
     config.add_show_field 'access_ssi', label: 'Access'
     config.add_show_field 'url_ss', label: 'URL'
@@ -174,7 +174,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'doi_ssi', label: 'DOI'
     config.add_show_field 'provider_identifier_ssi', label: 'Provider id'
     config.add_show_field 'descriptions_tsim', label: 'Description'
-    config.add_show_field 'funders_tsim', label: 'Funders'
+    config.add_show_field 'funders_ssim',  label: 'Funders'
 
     #config.add_show_field 'title_vern_ssim', label: 'Title'
     #config.add_show_field 'subtitle_tsim', label: 'Subtitle'
