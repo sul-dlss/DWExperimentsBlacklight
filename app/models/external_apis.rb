@@ -8,6 +8,12 @@ class ExternalApis
     api_instance.retrieve_metadata(source_identifier)
   end
 
+  def metadata_url(source, source_identifier)
+    # Which service do we use
+    api_instance = external_api_class(source).new
+    api_instance.metadata_url(source_identifier)
+  end
+
   def external_api_class(source)
     puts "EXTERNAL API CLASS #{source}"
     case source
@@ -23,6 +29,8 @@ class ExternalApis
       Sdr
     when "Zenodo"
       Zenodo
+    when "SearchWorks"
+      SearchWorks
     end
   end
 

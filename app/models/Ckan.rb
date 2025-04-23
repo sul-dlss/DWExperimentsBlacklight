@@ -9,12 +9,16 @@ class Ckan
   # This is not necessarily a single "file" but dataset as defined by the service
   def retrieve_metadata(source_identifier_ssi)
     # Which identifier do we use to retrieve the data    
-    json_response(@base_datasets_url + "?id=" + source_identifier_ssi)
+    json_response(metadata_url(source_identifier_ssi))
   end
 
   def json_response(url)
     resp = Net::HTTP.get_response(URI.parse(url))
     data = resp.body
     JSON.parse(data)
+  end
+
+  def metadata_url(source_identifier_ssi)
+    @base_datasets_url + "?id=" + source_identifier_ssi
   end
 end

@@ -1,8 +1,7 @@
 module ExternalHelper
   def external_metadata(source, source_identifier)
     json_response = ExternalApis.new.retrieve_dataset_metadata(source, source_identifier)
-    #display_metadata("Dryad", json_response)
-    display_metadata(source, json_response)
+    provider_url(source, json_response) + display_metadata(source, json_response)
   end
 
   def display_metadata(source, json_response)
@@ -19,6 +18,8 @@ module ExternalHelper
       display_sdr(json_response)
     when "Zenodo"
       display_zenodo(json_response)
+    when "SearchWorks"
+      display_searchworks(json_response)
     end
   end
 
@@ -26,7 +27,6 @@ module ExternalHelper
 
   # Dryad
   def display_dryad(json_response)
-    puts "DISPLAY DRYAD #{json_response}"
     display_html = ""
     # Don't display links
     json_response.each do |json_field, json_value|
@@ -59,6 +59,10 @@ module ExternalHelper
 
   def display_zenodo(json_response)
     display_metadata_json(json_response)
+  end
+
+  def display_searchworks(json_response)
+    display_metadata_json(json_response["response"]["document"])
   end
   # Generate Blacklight like display for metadata
   # Display whatever json object we pass through
@@ -102,6 +106,32 @@ module ExternalHelper
   # Dataset preview
   def display_preview(dataset_download_url)
     ExternalApis.new.dataset_preview(dataset_download_url)
+  end
+
+  # Get the URL
+  def external_metadata_url(source, source_identifier)
+     ExternalApis.new.metadata_url(source, source_identifier)
+  end
+
+  # Get the URL (where possible) for the page at the provider
+  def provider_url(source, json_response)
+    url = case source
+    when "Dryad"
+      "https://datadryad.org/dataset/#{json_response['identifier']}" 
+    when "DataCite"
+      "https://commons.datacite.org/#{json_response["data"]["attributes"]["doi"]}"
+    when "Redivis"
+      "https://redivis.com/datasets/#{json_response['id']}"
+    when "Data.gov"
+      ''
+    when "SDR"
+      ''
+    when "Zenodo"
+      "https://zenodo.org/records/#{json_response['id']}"
+    when "SearchWorks"
+      "https://searchworks.stanford.edu/view/#{json_response['response']['document']['id']}"
+    end
+    sanitize "<a href='#{url}'>Provider url</a>"
   end
 
 end
