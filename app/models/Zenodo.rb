@@ -19,6 +19,6 @@ class Zenodo
   end
 
   def metadata_url(source_identifier_ssi)
-    base_datasets_url + CGI.escape(source_identifier_ssi)
+    @base_datasets_url + CGI.escape(source_identifier_ssi)
   end
 end
