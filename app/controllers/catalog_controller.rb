@@ -123,9 +123,22 @@ class CatalogController < ApplicationController
     #config.add_facet_field 'funders_ssim', label: 'Funders'
     config.add_facet_field 'doi_ssi', label: 'DOI'
     config.add_facet_field 'creators_ssim', label: 'Creators'
+    config.add_facet_field 'contributors_ssim', label: 'Contributors'
     config.add_facet_field 'funders_ssim', label: 'Funders'
-    config.add_facet_field 'funders_ids_sim', label: 'Funder Ids'
+    config.add_facet_field 'publisher_ssi', label: 'Publishers'
+    config.add_facet_field 'publication_year_isi', label: 'Publication year'
+    config.add_facet_field 'temporal_isim', label: 'Temporal Coverage'
+    config.add_facet_field 'subjects_ssim', label: 'Subjects'
+    config.add_facet_field 'affiliation_names_sim', label: 'Affiliations'
+    config.add_facet_field 'language_ssi', label: 'Language'
+    config.add_facet_field 'formats_ssim', label: 'Formats'
     config.add_facet_field 'creators_ids_sim', label: 'Creator Ids'
+    config.add_facet_field 'contributors_ids_sim', label: 'Creator Ids'
+    config.add_facet_field 'funders_ids_sim', label: 'Funder Ids'
+    config.add_facet_field 'publisher_id_sim', label: 'Publisher Ids'
+    config.add_facet_field 'related_ids_sim', label: 'Related Ids'
+    config.add_facet_field 'rights_uris_sim', label: 'Rights URIs'
+
 
 
 
@@ -167,14 +180,28 @@ class CatalogController < ApplicationController
     config.add_show_field 'other_title_tsim', label: 'Other Title'
 
     config.add_show_field 'creators_ssim', label: 'Creators', itemprop: 'creator', link_to_facet: true
+    config.add_show_field 'contributors_ssim', label: 'Contributors', itemprop: 'creator', link_to_facet: true
     #config.add_show_field 'creators_struct_ss', label: 'Creator Info'
-    config.add_show_field 'access_ssi', label: 'Access'
+    config.add_show_field 'access_ssi', label: 'Access', link_to_facet: true
     config.add_show_field 'url_ss', label: 'URL'
     config.add_show_field 'provider_ssi', label: 'Provider', link_to_facet: true
     config.add_show_field 'doi_ssi', label: 'DOI'
     config.add_show_field 'provider_identifier_ssi', label: 'Provider id'
     config.add_show_field 'descriptions_tsim', label: 'Description'
+    config.add_show_field 'methods_tsim', label: 'Methods'
+    config.add_show_field 'other_descriptions_tsim', label: 'Other description'
+    config.add_show_field 'subjects_ssim', label: 'Subjects'
+    config.add_show_field 'language_ssi', label: 'Language', link_to_facet: true
+    config.add_show_field 'sizes_ssm', label: 'Sizes'
+    config.add_show_field 'formats_ssim', label: 'Formats', link_to_facet: true
+    config.add_show_field 'version_ss', label: 'Version'
     config.add_show_field 'funders_ssim',  label: 'Funders', link_to_facet: true
+    config.add_show_field 'publication_year_isi', label: 'Publication Year', link_to_facet: true
+    config.add_show_field 'temporal_isim', label: 'Temporal coverage', link_to_facet: true
+    config.add_show_field 'variables_tsim', label: 'Variables', link_to_facet: true
+    config.add_show_field 'related_identifiers_struct_ss', label: 'Related Identifiers'
+    config.add_show_field 'dates_struct_ss', label: 'Related dates'
+    config.add_show_field 'funding_references_struct_ss', label: 'Funding full info'
 
     #config.add_show_field 'title_vern_ssim', label: 'Title'
     #config.add_show_field 'subtitle_tsim', label: 'Subtitle'
