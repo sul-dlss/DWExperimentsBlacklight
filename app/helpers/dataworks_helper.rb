@@ -17,7 +17,7 @@ module DataworksHelper
             "#{prefix_string} #{id} #{display_remaining_keys(val, ['related_identifier', 'relation_type', 'related_identifier_type'])}"
             # Display any other keys after
         end.join('<br>')
-    end.join('')
+    end.join('').html_safe
     
   end
 
@@ -124,6 +124,21 @@ module DataworksHelper
         parsed_json.map do |val|
             display = val['date']
             display = "#{val['date_type']}: #{display}" if val['date_type'].present?
+        end.join('<br>')
+    end.join(' ').html_safe
+  end
+
+  def display_rights(args)
+    args[:value].map do |arg|
+        parsed_json = JSON.parse(arg)
+        parsed_json.map do |val|
+            rights = val['rights'] || ''
+            rights_uri = val['rights_uri'] || ''
+            rights_identifier = val['rights_identifier'] || ''
+            rights_identifier_scheme = val['rights_identifier_scheme'] || ''
+            rights_link = rights_uri.present? ? ", #{link_to('URI', rights_uri)}" : ''
+            rights_identifier_display = rights_identifier_scheme.present? ? ", #{rights_identifier_scheme}: #{rights_identifier}" : rights_identifier
+            "#{rights}#{rights_link} #{rights_identifier_display}"
         end.join('<br>')
     end.join(' ').html_safe
   end

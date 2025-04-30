@@ -203,7 +203,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'variables_tsim', label: 'Variables', link_to_facet: true
     config.add_show_field 'related_identifiers_struct_ss', label: 'Related Identifiers', helper_method: :render_related_identifiers
     config.add_show_field 'dates_struct_ss', label: 'Related dates', helper_method: :display_dates
-
+    config.add_show_field 'rights_list_struct_ss', label: 'Rights', helper_method: :display_rights
     #config.add_show_field 'title_vern_ssim', label: 'Title'
     #config.add_show_field 'subtitle_tsim', label: 'Subtitle'
     #config.add_show_field 'subtitle_vern_ssim', label: 'Subtitle'
