@@ -179,11 +179,12 @@ class CatalogController < ApplicationController
     config.add_show_field 'translate_title_tsim', label: 'Translated Title'
     config.add_show_field 'other_title_tsim', label: 'Other Title'
 
-    config.add_show_field 'creators_ssim', label: 'Creators', itemprop: 'creator', link_to_facet: true
-    config.add_show_field 'contributors_ssim', label: 'Contributors', itemprop: 'creator', link_to_facet: true
-    #config.add_show_field 'creators_struct_ss', label: 'Creator Info'
+    #config.add_show_field 'creators_ssim', label: 'Creators', itemprop: 'creator', link_to_facet: true
+    #config.add_show_field 'contributors_ssim', label: 'Contributors', itemprop: 'creator', link_to_facet: true
+    config.add_show_field 'creators_struct_ss', label: 'Creators', helper_method: :render_creators_contributors
+    config.add_show_field 'contributors_struct_ss', label: 'Contributors', helper_method: :render_creators_contributors
     config.add_show_field 'access_ssi', label: 'Access', link_to_facet: true
-    config.add_show_field 'url_ss', label: 'URL'
+    config.add_show_field 'url_ss', label: 'URL', helper_method: :url_link
     config.add_show_field 'provider_ssi', label: 'Provider', link_to_facet: true
     config.add_show_field 'doi_ssi', label: 'DOI'
     config.add_show_field 'provider_identifier_ssi', label: 'Provider id'
@@ -195,13 +196,13 @@ class CatalogController < ApplicationController
     config.add_show_field 'sizes_ssm', label: 'Sizes'
     config.add_show_field 'formats_ssim', label: 'Formats', link_to_facet: true
     config.add_show_field 'version_ss', label: 'Version'
-    config.add_show_field 'funders_ssim',  label: 'Funders', link_to_facet: true
+    # config.add_show_field 'funders_ssim',  label: 'Funders', link_to_facet: true
+    config.add_show_field 'funding_references_struct_ss', label: 'Funding full info', helper_method: :display_funding_information
     config.add_show_field 'publication_year_isi', label: 'Publication Year', link_to_facet: true
     config.add_show_field 'temporal_isim', label: 'Temporal coverage', link_to_facet: true
     config.add_show_field 'variables_tsim', label: 'Variables', link_to_facet: true
-    config.add_show_field 'related_identifiers_struct_ss', label: 'Related Identifiers'
-    config.add_show_field 'dates_struct_ss', label: 'Related dates'
-    config.add_show_field 'funding_references_struct_ss', label: 'Funding full info'
+    config.add_show_field 'related_identifiers_struct_ss', label: 'Related Identifiers', helper_method: :render_related_identifiers
+    config.add_show_field 'dates_struct_ss', label: 'Related dates', helper_method: :display_dates
 
     #config.add_show_field 'title_vern_ssim', label: 'Title'
     #config.add_show_field 'subtitle_tsim', label: 'Subtitle'
