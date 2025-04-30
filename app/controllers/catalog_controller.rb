@@ -121,23 +121,23 @@ class CatalogController < ApplicationController
     config.add_facet_field 'access_ssi', label: 'Access'
     config.add_facet_field 'provider_ssi', label: 'Provider'
     #config.add_facet_field 'funders_ssim', label: 'Funders'
-    config.add_facet_field 'doi_ssi', label: 'DOI'
-    config.add_facet_field 'creators_ssim', label: 'Creators'
-    config.add_facet_field 'contributors_ssim', label: 'Contributors'
-    config.add_facet_field 'funders_ssim', label: 'Funders'
-    config.add_facet_field 'publisher_ssi', label: 'Publishers'
-    config.add_facet_field 'publication_year_isi', label: 'Publication year'
-    config.add_facet_field 'temporal_isim', label: 'Temporal Coverage'
-    config.add_facet_field 'subjects_ssim', label: 'Subjects'
-    config.add_facet_field 'affiliation_names_sim', label: 'Affiliations'
+    config.add_facet_field 'doi_ssi', label: 'DOI', limit: 15
+    config.add_facet_field 'creators_ssim', label: 'Creators', limit: 15
+    config.add_facet_field 'contributors_ssim', label: 'Contributors', limit: 15
+    config.add_facet_field 'funders_ssim', label: 'Funders', limit: 15
+    config.add_facet_field 'publisher_ssi', label: 'Publishers', limit: 15
+    config.add_facet_field 'publication_year_isi', label: 'Publication year', limit: 15
+    config.add_facet_field 'temporal_isim', label: 'Temporal Coverage', limit: 15
+    config.add_facet_field 'subjects_ssim', label: 'Subjects', limit: 15
+    config.add_facet_field 'affiliation_names_sim', label: 'Affiliations', limit: 15
     config.add_facet_field 'language_ssi', label: 'Language'
-    config.add_facet_field 'formats_ssim', label: 'Formats'
-    config.add_facet_field 'creators_ids_sim', label: 'Creator Ids'
-    config.add_facet_field 'contributors_ids_sim', label: 'Creator Ids'
-    config.add_facet_field 'funders_ids_sim', label: 'Funder Ids'
-    config.add_facet_field 'publisher_id_sim', label: 'Publisher Ids'
-    config.add_facet_field 'related_ids_sim', label: 'Related Ids'
-    config.add_facet_field 'rights_uris_sim', label: 'Rights URIs'
+    config.add_facet_field 'formats_ssim', label: 'Formats', limit: 15
+    config.add_facet_field 'creators_ids_sim', label: 'Creator Ids', limit: 15
+    config.add_facet_field 'contributors_ids_sim', label: 'Contributor Ids', limit: 15
+    config.add_facet_field 'funders_ids_sim', label: 'Funder Ids', limit: 15
+    config.add_facet_field 'publisher_id_sim', label: 'Publisher Ids', limit: 15
+    config.add_facet_field 'related_ids_sim', label: 'Related Ids', limit: 15
+    config.add_facet_field 'rights_uris_sim', label: 'Rights URIs', limit: 15
 
 
 
