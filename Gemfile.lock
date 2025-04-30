@@ -143,6 +143,7 @@ GEM
       ostruct
     connection_pool (2.5.3)
     crass (1.0.6)
+    csv (3.3.4)
     date (3.4.1)
     debug (1.10.0)
       irb (~> 1.10)
@@ -393,6 +394,7 @@ DEPENDENCIES
   capistrano-rvm
   capybara
   config
+  csv
   debug
   dlss-capistrano
   dotenv

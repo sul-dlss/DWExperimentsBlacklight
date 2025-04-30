@@ -70,6 +70,9 @@ end
 # Incorporating blacklight
 gem "blacklight"
 
+# CSV needs to be added explicitly post ruby 3.4
+gem "csv"
+
 group :development, :test do
   gem "solr_wrapper", ">= 0.3"
 end
