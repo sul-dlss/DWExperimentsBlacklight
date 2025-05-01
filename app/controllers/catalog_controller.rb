@@ -191,7 +191,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'descriptions_tsim', label: 'Description'
     config.add_show_field 'methods_tsim', label: 'Methods'
     config.add_show_field 'other_descriptions_tsim', label: 'Other description'
-    config.add_show_field 'subjects_ssim', label: 'Subjects'
+    config.add_show_field 'subjects_ssim', label: 'Subjects', link_to_facet: true
     config.add_show_field 'language_ssi', label: 'Language', link_to_facet: true
     config.add_show_field 'sizes_ssm', label: 'Sizes'
     config.add_show_field 'formats_ssim', label: 'Formats', link_to_facet: true
