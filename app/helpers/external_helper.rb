@@ -119,7 +119,7 @@ module ExternalHelper
     when "Dryad"
       "https://datadryad.org/dataset/#{json_response['identifier']}" 
     when "DataCite"
-      "https://commons.datacite.org/#{json_response["data"]["attributes"]["doi"]}"
+      "https://commons.datacite.org/doi.org/#{json_response["data"]["attributes"]["doi"]}"
     when "Redivis"
       "https://redivis.com/datasets/#{json_response['id']}"
     when "Data.gov"
