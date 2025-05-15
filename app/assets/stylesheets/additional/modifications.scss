@@ -20,6 +20,31 @@ $font-family-serif: "Source Serif 4", serif;
   --bs-link-hover-decoration: underline;
 }
 
+.dl-invert dt {
+  text-align: left;
+  font-size: 20px;
+  font-weight: 600;
+  color: black;
+  padding-left: 1.5rem !important;
+}
+
+.dl-invert {
+  margin-bottom: 2px;
+  padding-bottom: 1px;
+}
+
+.documentHeader {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #d1d1d1;
+  margin-bottom: 2rem;
+}
+
+.provider-metadata {
+  padding-top: 1rem;
+  margin-top: 2rem;
+  border-top: 1px solid #d1d1d1;
+}
+
 @import 'sulBase';
 @import "sulHeader";
 @import 'stanfordStripe';

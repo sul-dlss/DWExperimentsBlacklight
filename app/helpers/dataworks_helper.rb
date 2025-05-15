@@ -65,7 +65,6 @@ module DataworksHelper
         parsed_json = JSON.parse(arg)
         parsed_json.map do |val|
             name = val.key?('name')? val['name'] : ''
-            #add_facet_link('funders_ssim', funder_name)
             "#{add_facet_link(facet_field, name)}#{display_name_identifiers(val)}#{display_affiliation_info(val)}"
         end.join('<br>')
         
@@ -141,5 +140,17 @@ module DataworksHelper
             "#{rights}#{rights_link} #{rights_identifier_display}"
         end.join('<br>')
     end.join(' ').html_safe
+  end
+
+  def display_variables(args)
+    args[:value].map(&:titleize).sort.join('<br>').html_safe
+  end
+
+  def display_facet_separate_lines(args)
+    puts args[:field]
+    field = args[:field]
+    args[:value].sort.map do|val|
+      add_facet_link(field, val)
+    end.join('<br>').html_safe
   end
 end
