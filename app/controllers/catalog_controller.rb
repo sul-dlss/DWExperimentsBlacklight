@@ -175,14 +175,15 @@ class CatalogController < ApplicationController
     config.add_show_field 'sizes_ssm', label: 'Sizes'
     config.add_show_field 'formats_ssim', label: 'Formats', link_to_facet: true
     config.add_show_field 'version_ss', label: 'Version'
-    config.add_show_field 'funding_references_struct_ss', label: 'Funding full info', helper_method: :display_funding_information
+    config.add_show_field 'funding_references_struct_ss', label: 'Funding Full Info', helper_method: :display_funding_information
     config.add_show_field 'publication_year_isi', label: 'Publication Year', link_to_facet: true
-    config.add_show_field 'temporal_isim', label: 'Temporal coverage', link_to_facet: true
+    config.add_show_field 'temporal_isim', label: 'Temporal Coverage', link_to_facet: true
+    config.add_show_field 'geo_place_ssim', label: 'Geographic Coverage'
     config.add_show_field 'variables_tsim', label: 'Variables', helper_method: :display_variables
     config.add_show_field 'related_identifiers_struct_ss', label: 'Related Identifiers', helper_method: :render_related_identifiers
-    config.add_show_field 'dates_struct_ss', label: 'Related dates', helper_method: :display_dates
+    config.add_show_field 'dates_struct_ss', label: 'Related Dates', helper_method: :display_dates
     config.add_show_field 'rights_list_struct_ss', label: 'Rights', helper_method: :display_rights
-    config.add_show_field 'provider_identifier_map_struct_ss', label: 'Also available at', helper_method: :display_also_available
+    config.add_show_field 'provider_identifier_map_struct_ss', label: 'Also Available At', helper_method: :display_also_available
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
