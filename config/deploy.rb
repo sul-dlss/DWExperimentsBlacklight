@@ -2,7 +2,7 @@
 #lock "~> 3.18.1"
 
 set :application, "dwexp"
-set :repo_url, "git@github.com:sul-dlss-labs/DWExperimentsBlacklight.git"
+set :repo_url, "git@github.com:sul-dlss/DWExperimentsBlacklight.git"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
