@@ -32,8 +32,8 @@ class CatalogController < ApplicationController
 
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
     config.default_solr_params = {
-      rows: 10,
-      spellcheck: false
+      qt: 'search',
+      rows: 10
     }
 
     # solr path which will be added to solr base url before the other solr params.
@@ -216,36 +216,33 @@ class CatalogController < ApplicationController
       # solr_parameters hash are sent to Solr as ordinary url query params.
       field.solr_parameters = {
         'spellcheck.dictionary': 'title',
-        qf: 'title_tsim subtitle_tsim alternative_title_tsim other_title_tsim translate_title_tsim',
-        pf: 'title_tsim^2 subtitle_tsim^2'
+        qf: '${title_qf}',
+        pf: '${title_pf}'
       }
     end
 
-    config.add_search_field('authors') do |field|
+    config.add_search_field('author') do |field|
       field.solr_parameters = {
         'spellcheck.dictionary': 'author',
-        qf: 'creators_ssim contributors_ssim creators_ids_sim contributors_ids_sim',
-        pf: 'creators_ssim contributors_ssim creators_ids_sim contributors_ids_sim'
+        qf: '${author_qf}',
+        pf: '${author_pf}'
       }
     end
 
     # Specifying a :qt only to show it's possible, and so our internal automated
     # tests can test it. In this case it's the same as
     # config[:default_solr_parameters][:qt], so isn't actually neccesary.
-    config.add_search_field('subjects') do |field|
-      field.qt = 'search'
+    config.add_search_field('subject') do |field|
       field.solr_parameters = {
         'spellcheck.dictionary': 'subject',
-        qf: 'subjects_ssim',
-        pf: 'subjects_ssim'
-      }
+        qf: '${subject_qf}',
+        pf: '${subject_pf}'
+    }
     end
 
     config.add_search_field('DOI') do |field|
-      field.qt = 'search'
       field.solr_parameters = {
-        qf: 'doi_ssi',
-        pf: 'doi_ssi'
+        qf: 'doi_ssi'
       }
     end
 
