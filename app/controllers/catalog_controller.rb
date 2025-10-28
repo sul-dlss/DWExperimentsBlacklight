@@ -114,7 +114,6 @@ class CatalogController < ApplicationController
     config.add_facet_field 'access_ssi', label: 'Access'
     config.add_facet_field 'provider_ssi', label: 'Provider'
     # config.add_facet_field 'doi_ssi', label: 'DOI', limit: 15
-    config.add_facet_field 'creators_ssim', label: 'Creators', limit: 15
     config.add_facet_field 'contributors_ssim', label: 'Contributors', limit: 15
     config.add_facet_field 'funders_ssim', label: 'Funders', limit: 15
     config.add_facet_field 'publisher_ssi', label: 'Publishers', limit: 15
