@@ -1,0 +1,19 @@
+<dt><%= @field.label %></dt>
+<dd>
+  <table class="table table-sm m-2">
+    <thead class="visually-hidden">
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Affiliations</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% contributors.each do |contributor| %>
+        <%= render Dwexp::ContributorRowComponent.new(field: @field, contributor: contributor) %>
+      <% end %>
+    </tbody>
+    <% if creator_data.any? %>
+      <caption>*Creator</caption>
+    <% end %>
+  </table>
+</dd>

@@ -57,65 +57,6 @@ module DataworksHelper
     link_to(facet_value, url)
   end
 
-  # Render creators info
-  def render_creators_contributors(args)
-     # args[:value] appears to always be an array, even when the field is single valued in Solr
-    facet_field = (args[:field] == 'creators_struct_ss') ? 'creators_ssim': 'contributors_ssim'
-     info = args[:value].map do |arg|
-        parsed_json = JSON.parse(arg)
-        parsed_json.map do |val|
-            name = val.key?('name')? val['name'] : ''
-            "#{add_facet_link(facet_field, name)}#{display_name_identifiers(val, name)}#{display_affiliation_info(val)}"
-        end.join('<br>')
-
-    end.join('')
-
-    info.html_safe
-  end
-
-  def display_name_identifiers(val, name)
-    return '' if ! val.key?('name_identifiers')
-
-    ids = val['name_identifiers'].filter_map do |nid|
-        next if nid['name_identifier'].blank?
-
-        name_identifier_scheme = nid['name_identifier_scheme'] || ''
-
-        if(name_identifier_scheme == 'ORCID')
-            render_orcid_link(nid['name_identifier'], name)
-        elsif(name_identifier_scheme.length > 0)
-            "#{name_identifier_scheme} : #{nid['name_identifier']}"
-        else
-            nid['name_identifier']
-        end
-    end.join(', ')
-
-    ids.length > 0 ? " #{ids}" : ''
-  end
-
-  # Render a link to an ORCID profile with the ORCID icon
-  # @param orcid [String] The ORCID URL or ID
-  # @param name [String] The name associated with the ORCID
-  def render_orcid_link(orcid, name)
-    orcid_id = URI.parse(orcid).path.delete_prefix('/')
-    link_to("https://orcid.org/#{orcid_id}", target: :blank) do
-      tag.span("ORCID profile for #{name} ", class: 'visually-hidden') +
-      image_tag('orcid_id.svg', alt: "", class: 'orcid-icon')
-    end
-  end
-
-  def display_affiliation_info(val)
-    return '' if val['affiliation'].blank?
-
-    affiliations = val['affiliation'].filter_map do |a|
-        next unless a['name'].present?
-
-        a['name']
-    end.join(', ')
-
-    affiliations.empty? ? '' : " (#{affiliations})"
-  end
-
   def url_link(args)
     link_to(args[:value][0], args[:value][0], target: :blank)
   end

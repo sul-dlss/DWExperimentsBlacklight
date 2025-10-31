@@ -1,0 +1,14 @@
+<tr>
+  <th scope="row">
+    <%= render_name %>
+  </th>
+  <td>
+    <table>
+      <% Array(@contributor['affiliation']).each do |affiliation| %>
+        <tr>
+          <td><%= render_affiliation(affiliation) %></td>
+        </tr>
+      <% end %>
+    </table>
+  </td>
+</tr>

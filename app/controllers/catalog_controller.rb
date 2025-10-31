@@ -162,8 +162,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'alternative_title_tsim', label: 'Alternative Title'
     config.add_show_field 'translate_title_tsim', label: 'Translated Title'
     config.add_show_field 'other_title_tsim', label: 'Other Title'
-    config.add_show_field 'creators_struct_ss', label: 'Creators', helper_method: :render_creators_contributors
-    config.add_show_field 'contributors_struct_ss', label: 'Contributors', helper_method: :render_creators_contributors
+    config.add_show_field 'contributors_ssim', label: 'Contributors', component: Dwexp::ContributorTableComponent
     config.add_show_field 'access_ssi', label: 'Access', link_to_facet: true
     config.add_show_field 'url_ss', label: 'URL', helper_method: :url_link
     config.add_show_field 'provider_ssi', label: 'Provider', link_to_facet: true
