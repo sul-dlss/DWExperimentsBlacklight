@@ -66,5 +66,9 @@ module Dwexp
         'Publications'
       end
     end
+
+    def openalex_info_url
+      "#{root_path}openalex_info" 
+    end
   end
 end

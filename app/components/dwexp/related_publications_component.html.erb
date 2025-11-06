@@ -1,7 +1,7 @@
 <dt class="blacklight-formats_ssim col-md-3"> Related Publications:
 </dt>
 <dd class="col-md-9 blacklight-formats_ssim">
-<div data-controller="related-publications">
+<div data-controller="related-publications" data-related-publications-url-value="<%= openalex_info_url %>">
 <%
   @group_publications.keys.each do |display_relation_type|
     %><h5><%= display_relation_type %></h5><%

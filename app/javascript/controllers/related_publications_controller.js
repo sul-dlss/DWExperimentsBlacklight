@@ -2,6 +2,10 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = [ 'publication' ]
+  static values = {
+    url: String
+  }
+
 
   connect() {
     this.queryPublications()
@@ -21,11 +25,12 @@ export default class extends Controller {
   async openAlexInfo(id, idType) {
     try {
       idType = (idType == "")? "doi": idType 
-      const response = await fetch("api_info?id=" + id + "&type=" + idType)
+      const queryPath = this.urlValue + "?id=" + id + "&type=" + idType
+      const response = await fetch(queryPath)
       const data = await response.json();
       this.displayPublication(data)
     } catch(error) {
-      console.error("Error fetching response", error)
+      console.error("Error fetching response for " + id, error)
     }
   }
 
