@@ -11,7 +11,7 @@
         id = item['related_identifier']
         display_id = "#{id_type} #{id}"
         %>
-        <span data-related-publications-target="publication" api-id="<%=id%>" api-id-type-value="<%=id%>"><%= display_id %></span>
+        <span data-related-publications-target="publication" api-id="<%=id%>" api-id-type="<%=id_type%>"><%= display_id %></span>
         <%
       end
     end

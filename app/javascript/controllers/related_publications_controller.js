@@ -28,19 +28,19 @@ export default class extends Controller {
       const queryPath = this.urlValue + "?id=" + id + "&type=" + idType
       const response = await fetch(queryPath)
       const data = await response.json();
-      this.displayPublication(data)
+      this.displayPublication(data, idType)
     } catch(error) {
       console.error("Error fetching response for " + id, error)
     }
   }
 
-  displayPublication(data) {
+  displayPublication(data, idType) {
     const type = data['type']
     // Do not display if the type of the item is a dataset
     if(type == 'dataset')
       return
 
-    const title = data['title']
+    const title = idType == 'ISSN'? data['display_name'] : data['title']
     const URL = this.URLLink(data)
     const year = this.yearDisplay(data)
     const authorship = this.authorshipDisplay(data)
@@ -54,6 +54,8 @@ export default class extends Controller {
     var URL = ''
     if('primary_location' in data && 'landing_page_url' in data['primary_location']) {
       URL = data['primary_location']['landing_page_url']
+    } else if('homepage_url' in data) {
+      URL = data['homepage_url']
     } else if ('doi' in data) {
       URL = data['doi']
     }
