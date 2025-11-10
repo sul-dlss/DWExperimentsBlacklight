@@ -1,7 +1,7 @@
 module Dwexp  
   class AccessComponent < ViewComponent::Base
-    def initialize(access:)
-      @access = access
+    def initialize(document:)
+      @access = document['access_ssi']
       super()
     end
   end

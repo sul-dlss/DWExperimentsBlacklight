@@ -1,7 +1,7 @@
 module Dwexp  
   class RightsComponent < ViewComponent::Base
-    def initialize(rights_list:)
-      @rights_list = JSON.parse(rights_list || '[]')
+    def initialize(document:)
+      @rights_list = JSON.parse(document['rights_list_struct_ss'] || '[]')
       super()
     end
 

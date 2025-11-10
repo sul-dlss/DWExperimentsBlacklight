@@ -1,8 +1,8 @@
 module Dwexp  
   class AlsoAvailableComponent < ViewComponent::Base
-    def initialize(providers_info:, url:)
-      @url = url
-      @providers_info = providers_info
+    def initialize(document:)
+      @providers_info = document['provider_identifier_map_struct_ss']
+      @url = document['url_ss']
       @available = extract_also_available
       super()
     end

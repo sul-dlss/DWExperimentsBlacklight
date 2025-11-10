@@ -1,7 +1,7 @@
 module Dwexp  
   class ContactComponent < ViewComponent::Base
-    def initialize(contact_info:)
-      @contact_info = JSON.parse(contact_info || '[]')
+    def initialize(document:)
+      @contact_info = JSON.parse(document['access_contact_struct_ss'] || '[]')
       super()
     end
 
