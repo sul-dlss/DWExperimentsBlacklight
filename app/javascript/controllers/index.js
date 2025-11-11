@@ -2,7 +2,11 @@
 // Run that command whenever you add a new controller or create them with
 // ./bin/rails generate stimulus controllerName
 
-import { application } from "./application"
+import { application } from "controllers/application"
 
-import RelatedPublicationsController from "./related_publications_controller"
+// Eager load all controllers defined in the import map under controllers/**/*_controller
+import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading"
+eagerLoadControllersFrom("controllers", application)
+
+import RelatedPublicationsController from "controllers/related_publications_controller"
 application.register("related-publications", RelatedPublicationsController)
