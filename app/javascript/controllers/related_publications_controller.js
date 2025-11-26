@@ -12,42 +12,112 @@ export default class extends Controller {
   }
 
   queryPublications() {
+    this.idTypeHash = this.collectByIdType()
     const _this = this
+    for(const idType in this.idTypeHash) {
+      _this.openAlexInfo(_this.idTypeHash[idType], idType)
+    }
+  }
+
+  // We will combine cals for different ids
+  collectByIdType() {
+    var idTypeHash = {}
     this.publicationTargets.forEach((pub) => {
       var id = pub.getAttribute('api-id')
-      var idType = pub.getAttribute('api-id-type')
+      var idType = pub.getAttribute('api-id-type') || 'DOI'
       if(id != null) {
-        _this.openAlexInfo(id, idType) 
+        if(! (idType in idTypeHash)) {
+          idTypeHash[idType] = []
+        }
+        idTypeHash[idType].push(id)
       }
+    })
+    return idTypeHash
+  }
+
+  delay(milliseconds) {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+  }
+
+  // id = array of ids
+  async openAlexInfo(ids, idType) {
+    try {
+      const queryPath = this.constructQueryPath(ids, idType)
+      const response = await fetch(queryPath)
+      const data = await response.json();
+      this.displayPublications(data, idType)
+    } catch(error) {
+      console.error("Error fetching response for " + ids, error)
+    }
+  }
+
+  constructQueryPath(ids, idType) {
+    var idParams = ids.map(id => `ids[]=${id}`).join('&')
+    return this.urlValue + "?" + idParams + "&type=" + idType
+  }
+
+
+  // Data for multiple publications is returned
+  displayPublications(data, idType) {
+    const _this = this
+    const results = data['results'] 
+    results.forEach((result) => {
+      var type = result['type']
+      // Do not display if the type of the item is a dataset
+      if(type == 'dataset')
+        return
+
+      var title = idType == 'ISSN'? result['display_name'] : result['title']
+      if(title == '') {
+        title = 'Link'
+      }
+      var URL = _this.URLLink(result)
+      var year = _this.yearDisplay(result)
+      var authorship = _this.authorshipDisplay(result)
+      var targetId = _this.queryId(result, idType)
+
+      var displayHTML = ''
+      if (URL != '') {
+        var pubTarget = _this.publicationTargets.find((pub) => pub.getAttribute('api-id') === targetId)
+        displayHTML = authorship + year + "<a href='" + URL + "' target='blank'>" + title + "</a>"
+      } else {
+        displayHTML = authorship + year +  title
+      }
+      pubTarget.innerHTML = displayHTML
     })
   }
 
-  async openAlexInfo(id, idType) {
-    try {
-      idType = (idType == "")? "doi": idType 
-      const queryPath = this.urlValue + "?id=" + id + "&type=" + idType
-      const response = await fetch(queryPath)
-      const data = await response.json();
-      this.displayPublication(data, idType)
-    } catch(error) {
-      console.error("Error fetching response for " + id, error)
+  // With an individual result from OpenAlex, we can determine the original id we queried for
+  queryId(data, idType) {
+    var qid = data['id']
+    switch(idType) {
+      case 'OpenAlex':
+        qid = data['id']
+        var prefix = 'https://openalex.org/'
+        if(qid.startsWith(prefix)) {
+          qid = qid.substring(prefix.length)
+        }
+        break;
+      case 'PMID':
+        qid = data['ids']['pmid']
+        var prefix = 'https://pubmed.ncbi.nlm.nih.gov/'
+        if(qid.startsWith(prefix)) {
+          qid = qid.substring(prefix.length)
+        }
+        break;
+      case 'ISSN':
+        // ISSNs return an array
+        // We can just check the first one for now
+        qid = data['issn'][0]
+        break;
+      default:
+        qid = data['doi']
+        var prefix = 'https://doi.org/'
+        if(qid.startsWith(prefix)) {
+          qid = qid.substring(prefix.length)
+        }
     }
-  }
-
-  displayPublication(data, idType) {
-    const type = data['type']
-    // Do not display if the type of the item is a dataset
-    if(type == 'dataset')
-      return
-
-    const title = idType == 'ISSN'? data['display_name'] : data['title']
-    const URL = this.URLLink(data)
-    const year = this.yearDisplay(data)
-    const authorship = this.authorshipDisplay(data)
-
-    if (URL != '') {
-      this.publicationTarget.innerHTML = "<a href='" + URL + "' target='blank'>" + authorship + year + title + "</a>"
-    }
+    return qid
   }
 
   URLLink(data) {
