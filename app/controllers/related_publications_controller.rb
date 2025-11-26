@@ -3,14 +3,15 @@
 # Controller that handles request to retrieve information about related publications
 class RelatedPublicationsController < ApplicationController
   # Get info from Open Alex API regarding particular DOIs or identifiers
+  # The parameter accepts a string of ids as well
   def openalex_info
-    id = params[:id]
+    ids = params[:ids]
     type = params[:type] || 'doi'
     response = {}
 
-    if id.present?
+    if ids.present?
       oa = Openalex.new
-      response = oa.retrieve_metadata_by_id(id:, type:)
+      response = oa.retrieve_metadata_by_ids(ids:, type:)
     end
     render json: response
   end

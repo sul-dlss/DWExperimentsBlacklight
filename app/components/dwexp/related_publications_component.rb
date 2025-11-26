@@ -64,6 +64,8 @@ module Dwexp
         'Described By'
       when 'Cites'
         'Cites'
+      when 'References'
+          'References'
       else
         'Related resources'
       end
@@ -75,6 +77,13 @@ module Dwexp
 
     def render?
       @group_publications.present?
+    end
+
+    # PMID ids ending with .0 are not allowing for any responses from OpenAlex
+    def parse_id(id, idType)
+      return id.delete_suffix('.0') if idType == 'PMID'
+
+      id
     end
   end
 end
