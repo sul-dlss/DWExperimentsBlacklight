@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Dwexp
   class CollaboratorsModalComponent < Blacklight::System::ModalComponent
     def initialize(contributors:, facet:)

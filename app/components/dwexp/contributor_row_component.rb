@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Dwexp
   class ContributorRowComponent < ViewComponent::Base
     def initialize(field:, contributor:)
@@ -12,35 +14,33 @@ module Dwexp
     def render_name
       tag.div do
         link_to(@contributor['name'], search_catalog_path(f: { @field.field_config.key => [@contributor['name']] })) +
-        render_orcid_link +
-        render_profile_link
+          render_orcid_link +
+          render_profile_link
       end
     end
 
     # Render the profile page URL with Stanford badge, if the contributor has one
     def render_profile_link
-      return unless cap_id.present?
+      return if cap_id.blank?
 
       link_to("https://profiles.stanford.edu/intranet/#{cap_id}", target: :blank) do
         tag.span("Stanford profile for #{@contributor['name']} ", class: 'visually-hidden') +
-        tag.i(class:'ms-1 bi bi-person-fill profile')
+          tag.i(class: 'ms-1 bi bi-person-fill profile')
       end
     end
 
     # Get all of the departments for an affiliation, excluding duplicates of the affiliation name
     def departments(affiliation)
-      Array(affiliation['affiliation_department_name']).map do |dept|
-        dept unless affiliation['name'].include?(dept)
-      end.compact
+      Array(affiliation['affiliation_department_name']).reject { |dept| affiliation['name'].include?(dept) }
     end
 
     # Render a link to an ORCID profile with the ORCID icon, if the contributor has one
     def render_orcid_link
-      return unless orcid_url.present?
+      return if orcid_url.blank?
 
       link_to(orcid_url, target: :blank) do
         tag.span("ORCID profile for #{@contributor['name']} ", class: 'visually-hidden') +
-        image_tag('orcid_id.svg', alt: "", class: 'orcid-icon ms-2')
+          image_tag('orcid_id.svg', alt: '', class: 'orcid-icon ms-2')
       end
     end
 
@@ -50,38 +50,40 @@ module Dwexp
 
       link_to(affiliation['affiliation_identifier'], target: :blank) do
         tag.span("ROR profile for #{affiliation['name']} ", class: 'visually-hidden') +
-        image_tag('ror_icon.svg', alt: "", class: 'ror-icon ms-2')
+          image_tag('ror_icon.svg', alt: '', class: 'ror-icon ms-2')
       end
     end
 
     # Render the affiliation country as an emoji flag using ROR info
     def render_affiliation_country(affiliation)
       return unless affiliation['affiliation_identifier_scheme'] == 'ROR'
+
       org = RorService.get_by_id(affiliation['affiliation_identifier'])
-      return unless org&.country_name.present?
+      return if org&.country_name.blank?
 
       tag.div(class: 'text-nowrap') do
         tag.span(org.country_name) +
-        tag.span(org.country_emoji, class: 'ms-2', aria: { hidden: true })
+          tag.span(org.country_emoji, class: 'ms-2', aria: { hidden: true })
       end
     end
 
     # Render a link to view the modal of collaborators for this contributor
     def render_collaborators_link
-      link_to(collaborators_catalog_path(f: { 'contributors_ssim' => [@contributor['name']] }), data: { blacklight_modal: 'trigger', turbo: false }) do
-        tag.i(class: "bi bi-people-fill me-1", aria: { hidden: true }) +
-        tag.span(@contributor['name'], class: 'visually-hidden') +
-        tag.span("Collaborators")
+      link_to(collaborators_catalog_path(f: { 'contributors_ssim' => [@contributor['name']] }),
+              data: { blacklight_modal: 'trigger', turbo: false }) do
+        tag.i(class: 'bi bi-people-fill me-1', aria: { hidden: true }) +
+          tag.span(@contributor['name'], class: 'visually-hidden') +
+          tag.span('Collaborators')
       end
     end
-
-    private
 
     # The ORCID profile URL for the contributor, if present
     def orcid_url
       @orcid_url ||= begin
-        value = Array(@contributor['name_identifiers']).find { |id| id['name_identifier_scheme'] == 'ORCID' }&.dig('name_identifier')
-        return unless value.present?
+        value = Array(@contributor['name_identifiers']).find do |id|
+          id['name_identifier_scheme'] == 'ORCID'
+        end&.dig('name_identifier')
+        return if value.blank?
         return value if value.start_with?('http')
 
         "https://orcid.org/#{value}"
@@ -90,7 +92,9 @@ module Dwexp
 
     # The Stanford Profiles (CAP) identifier for the contributor, if present
     def cap_id
-      @cap_id ||= Array(@contributor['name_identifiers']).find { |id| id['name_identifier_scheme'] == 'CAP' }&.dig('name_identifier')
+      @cap_id ||= Array(@contributor['name_identifiers']).find do |id|
+        id['name_identifier_scheme'] == 'CAP'
+      end&.dig('name_identifier')
     end
   end
 end

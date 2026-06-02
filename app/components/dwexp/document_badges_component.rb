@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Dwexp
   class DocumentBadgesComponent < ViewComponent::Base
     attr_reader :document

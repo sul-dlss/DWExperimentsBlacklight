@@ -2,7 +2,6 @@
 
 # Blacklight controller that handles searches and document requests
 class CatalogController < ApplicationController
-
   include Blacklight::Catalog
 
   # If you'd like to handle errors returned by Solr in a certain way,
@@ -38,11 +37,11 @@ class CatalogController < ApplicationController
     }
 
     # solr path which will be added to solr base url before the other solr params.
-    #config.solr_path = 'select'
-    #config.document_solr_path = 'get'
+    # config.solr_path = 'select'
+    # config.document_solr_path = 'get'
 
     # items to show per page, each number in the array represent another option to choose from.
-    #config.per_page = [10,20,50,100]
+    # config.per_page = [10,20,50,100]
 
     # solr field configuration for search results/index views
     config.index.title_field = 'title_tsim'
@@ -61,13 +60,15 @@ class CatalogController < ApplicationController
     config.header_component = Dwexp::HeaderComponent
     config.logo_link = 'https://library.stanford.edu'
 
-    config.add_results_document_tool(:bookmark, component: Blacklight::Document::BookmarkComponent, if: :render_bookmarks_control?)
+    config.add_results_document_tool(:bookmark, component: Blacklight::Document::BookmarkComponent,
+                                                if: :render_bookmarks_control?)
 
     config.add_results_collection_tool(:sort_widget)
     config.add_results_collection_tool(:per_page_widget)
     config.add_results_collection_tool(:view_type_group)
 
-    config.add_show_tools_partial(:bookmark, component: Blacklight::Document::BookmarkComponent, if: :render_bookmarks_control?)
+    config.add_show_tools_partial(:bookmark, component: Blacklight::Document::BookmarkComponent,
+                                             if: :render_bookmarks_control?)
     config.add_show_tools_partial(:email, callback: :email_action, validator: :validate_email_params)
     config.add_show_tools_partial(:sms, if: :render_sms_action?, callback: :sms_action, validator: :validate_sms_params)
     config.add_show_tools_partial(:citation)
@@ -109,8 +110,10 @@ class CatalogController < ApplicationController
     # facet bar
     #
     # set :index_range to true if you want the facet pagination view to have facet prefix-based navigation
-    #  (useful when user clicks "more" on a large facet and wants to navigate alphabetically across a large set of results)
-    # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
+    #  (useful when user clicks "more" on a large facet and wants to navigate alphabetically
+    #   across a large set of results)
+    # :index_range can be an array or range of prefixes that will be used to create the navigation
+    # (note: It is case sensitive when searching values)
 
     config.add_facet_field 'stanford_contributor_bsi', label: 'Stanford authored', component: Dwexp::StanfordDatasetFacetComponent
     config.add_facet_field 'access_ssi', label: 'Access'
@@ -126,23 +129,22 @@ class CatalogController < ApplicationController
     config.add_facet_field 'language_ssi', label: 'Language', show: false
     config.add_facet_field 'formats_ssim', label: 'Formats', limit: 15
     config.add_facet_field 'department_ssim', label: 'Stanford department', limit: 15
-    #config.add_facet_field 'creators_ids_sim', label: 'Creator Ids', limit: 15
-    #config.add_facet_field 'contributors_ids_sim', label: 'Contributor Ids', limit: 15
-    #config.add_facet_field 'funders_ids_sim', label: 'Funder Ids', limit: 15
-    #config.add_facet_field 'publisher_id_sim', label: 'Publisher Ids', limit: 15
-    #config.add_facet_field 'related_ids_sim', label: 'Related Ids', limit: 15
-    #config.add_facet_field 'rights_uris_sim', label: 'Rights URIs', limit: 15
-    #config.add_facet_field 'courses_sim', label: 'Courses'
+    # config.add_facet_field 'creators_ids_sim', label: 'Creator Ids', limit: 15
+    # config.add_facet_field 'contributors_ids_sim', label: 'Contributor Ids', limit: 15
+    # config.add_facet_field 'funders_ids_sim', label: 'Funder Ids', limit: 15
+    # config.add_facet_field 'publisher_id_sim', label: 'Publisher Ids', limit: 15
+    # config.add_facet_field 'related_ids_sim', label: 'Related Ids', limit: 15
+    # config.add_facet_field 'rights_uris_sim', label: 'Rights URIs', limit: 15
+    # config.add_facet_field 'courses_sim', label: 'Courses'
 
-
-    #config.add_facet_field 'example_pivot_field', label: 'Pivot Field', pivot: ['format', 'language_ssim'], collapsing: true
+    # config.add_facet_field 'example_pivot_field', label: 'Pivot Field',
+    #   pivot: ['format', 'language_ssim'], collapsing: true
 
     # config.add_facet_field 'example_query_facet_field', label: 'Publish Date', :query => {
     #    :years_5 => { label: 'within 5 Years', fq: "pub_date_ssim:[#{Time.zone.now.year - 5 } TO *]" },
     #    :years_10 => { label: 'within 10 Years', fq: "pub_date_ssim:[#{Time.zone.now.year - 10 } TO *]" },
     #    :years_25 => { label: 'within 25 Years', fq: "pub_date_ssim:[#{Time.zone.now.year - 25 } TO *]" }
     # }
-
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -178,7 +180,8 @@ class CatalogController < ApplicationController
     config.add_show_field 'sizes_ssm', label: 'Sizes'
     config.add_show_field 'formats_ssim', label: 'Formats', link_to_facet: true
     config.add_show_field 'version_ss', label: 'Version'
-    config.add_show_field 'funding_references_struct_ss', label: 'Funding Full Info', helper_method: :display_funding_information
+    config.add_show_field 'funding_references_struct_ss', label: 'Funding Full Info',
+                                                          helper_method: :display_funding_information
     config.add_show_field 'publication_year_isi', label: 'Publication Year', link_to_facet: true
     config.add_show_field 'temporal_isim', label: 'Temporal Coverage', link_to_facet: true
     config.add_show_field 'geo_place_ssim', label: 'Geographic Coverage'
@@ -186,7 +189,8 @@ class CatalogController < ApplicationController
     # config.add_show_field 'related_identifiers_struct_ss', label: 'Related Publications', component: Dwexp::RelatedPublicationsComponent
     config.add_show_field 'dates_struct_ss', label: 'Related Dates', helper_method: :display_dates
     # config.add_show_field 'rights_list_struct_ss', label: 'Rights', show: false
-    # config.add_show_field 'provider_identifier_map_struct_ss', label: 'Also Available At', helper_method: :display_also_available
+    # config.add_show_field 'provider_identifier_map_struct_ss', label: 'Also Available At',
+    #   helper_method: :display_also_available
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
@@ -207,7 +211,6 @@ class CatalogController < ApplicationController
     # since we aren't specifying it otherwise.
 
     config.add_search_field 'all_fields', label: 'All Fields'
-
 
     # Now we see how to over-ride Solr request handler defaults, in this
     # case for a BL "search field", which is really a dismax aggregate
@@ -235,7 +238,7 @@ class CatalogController < ApplicationController
         'spellcheck.dictionary': 'subject',
         qf: '${subject_qf}',
         pf: '${subject_pf}'
-    }
+      }
     end
 
     config.add_search_field('doi') do |field|
@@ -250,8 +253,8 @@ class CatalogController < ApplicationController
     # except in the relevancy case). Add the sort: option to configure a
     # custom Blacklight url parameter value separate from the Solr sort fields.
     config.add_sort_field 'relevance', sort: 'score desc, publication_year_isi desc', label: 'relevance'
-    #config.add_sort_field 'year-desc', sort: 'pub_date_si desc, title_si asc', label: 'year'
-    #config.add_sort_field 'author', sort: 'author_si asc, title_si asc', label: 'author'
+    # config.add_sort_field 'year-desc', sort: 'pub_date_si desc, title_si asc', label: 'year'
+    # config.add_sort_field 'author', sort: 'author_si asc, title_si asc', label: 'author'
     config.add_sort_field 'publication_year_isi desc', label: 'publication year'
     config.add_sort_field 'timestamp desc', label: 'recently added', show: false
 
@@ -272,10 +275,10 @@ class CatalogController < ApplicationController
     @facet = blacklight_config.facet_fields['contributors_ssim']
     @contributors = params[:f][@facet.key]
     @response = search_service.facet_field_response(@facet.key, {
-      "f[#{@facet.key}][]" => @contributors,
-      "f.#{@facet.key}.facet.limit" => -1,  # get all values
-      "facet.sort" => 'count'
-    })
+                                                      "f[#{@facet.key}][]" => @contributors,
+                                                      "f.#{@facet.key}.facet.limit" => -1, # get all values
+                                                      'facet.sort' => 'count'
+                                                    })
     @display_facet = @response.aggregations[@facet.key]
     @presenter = @facet.presenter.new(@facet, @display_facet, view_context)
 

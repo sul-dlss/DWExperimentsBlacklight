@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ExternalApis
   require 'net/http'
   require 'uri'
@@ -16,54 +18,54 @@ class ExternalApis
 
   def external_api_class(source)
     case source
-    when "Dryad"
+    when 'Dryad'
       Dryad
-    when "DataCite"
+    when 'DataCite'
       Datacite
-    when "Redivis"
+    when 'Redivis'
       Redivis
-    when "Data.gov"
+    when 'Data.gov'
       Datagov
-    when "SDR"
+    when 'SDR'
       Sdr
-    when "Zenodo"
+    when 'Zenodo'
       Zenodo
-    when "SearchWorks"
+    when 'SearchWorks'
       SearchWorks
-    when "OpenAlex"
+    when 'OpenAlex'
       Openalex
     end
   end
 
   def dataset_preview(dataset_download_url)
-    #headers = "test"
-    #uri = URI(dataset_download_url)
-    #req = Net::HTTP::Get.new(uri.path, { 'User-Agent' => 'Mozilla/5.0 (etc...)' })
-    #Net::HTTP.start(uri.host, uri.port) { |http|
+    # headers = "test"
+    # uri = URI(dataset_download_url)
+    # req = Net::HTTP::Get.new(uri.path, { 'User-Agent' => 'Mozilla/5.0 (etc...)' })
+    # Net::HTTP.start(uri.host, uri.port) { |http|
     #  resp = http.request(req)
-      # head(uri.path)
-      #resp.each { |k, v| headers += "#{k}: #{v}" }
-    #}
-   
-    #http.finish if http.started?
-    #headers
-    resp = fetch(dataset_download_url, 5)
+    # head(uri.path)
+    # resp.each { |k, v| headers += "#{k}: #{v}" }
+    # }
+
+    # http.finish if http.started?
+    # headers
+    fetch(dataset_download_url, 5)
     read_csv_url(dataset_download_url)
-    #csv_headings(resp)
+    # csv_headings(resp)
     # This gives us http headers, we want actual CSV headers
-    #resp.each { |k, v| "#{k}: #{v}" }.join("<br>")
+    # resp.each { |k, v| "#{k}: #{v}" }.join("<br>")
   end
 
   # Copied from https://stackoverflow.com/questions/6934185/ruby-net-http-following-redirects
   def fetch(uri_str, limit = 10)
     # You should choose better exception.
-    raise ArgumentError, 'HTTP redirect too deep' if limit == 0
-  
+    raise ArgumentError, 'HTTP redirect too deep' if limit.zero?
+
     url = URI.parse(uri_str)
     req = Net::HTTP::Get.new(url.path, { 'User-Agent' => 'Mozilla/5.0 (etc...)' })
-    response = Net::HTTP.start(url.host, url.port, use_ssl: true) { |http| 
+    response = Net::HTTP.start(url.host, url.port, use_ssl: true) do |http|
       http.request(req)
-    }
+    end
     case response
     when Net::HTTPSuccess     then response
     when Net::HTTPRedirection then fetch(response['location'], limit - 1)
@@ -73,11 +75,10 @@ class ExternalApis
   end
 
   def csv_headings(response)
-    CSV.foreach(response, :headers => :first_row).first
+    CSV.foreach(response, headers: :first_row).first
   end
 
   def read_csv_url(url)
-    CSV.foreach(URI.open(url), :headers => :first_row).take(10)
+    CSV.foreach(URI.open(url), headers: :first_row).take(10)
   end
-
 end

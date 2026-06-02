@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Dwexp
   class RelatedPublicationsComponent < ViewComponent::Base
     def initialize(document:)
@@ -12,27 +14,27 @@ module Dwexp
     # Retrieve related items and then organize by type of relationship
     def group_related_items
       @related_items.each do |val|
-        id = val['related_identifier']
+        val['related_identifier']
         relation_type = val['relation_type'] || ''
         related_identifier_type = val['related_identifier_type'] || ''
 
-        @group_all[relation_type] = [] if ! @group_all.key?(relation_type)
+        @group_all[relation_type] = [] unless @group_all.key?(relation_type)
         @group_all[relation_type] << val
 
         # For publications, we group by what we will call the relationship type for display
-        if add_publication(val)
-          display_relation_type = relation_type_label(relation_type, related_identifier_type)
-          @group_publications[display_relation_type] = []  if ! @group_publications.key?(display_relation_type)
-          @group_publications[display_relation_type] << val
-        end
+        next unless add_publication(val)
+
+        display_relation_type = relation_type_label(relation_type, related_identifier_type)
+        @group_publications[display_relation_type] = [] unless @group_publications.key?(display_relation_type)
+        @group_publications[display_relation_type] << val
       end
     end
 
     # If the related item is absolutely NOT a publication, we don't want to add to our list
     # For reference, types in our index so far
-    # #<Set: {"Dataset", "", "Text", "Preprint", "JournalArticle", "Software", "Report", 
-    # "BookChapter", "Other", "Book", "ConferencePaper", "Dissertation", "InteractiveResource", 
-    # "Collection", "ComputationalNotebook", "ConferenceProceeding", "PeerReview", 
+    # #<Set: {"Dataset", "", "Text", "Preprint", "JournalArticle", "Software", "Report",
+    # "BookChapter", "Other", "Book", "ConferencePaper", "Dissertation", "InteractiveResource",
+    # "Collection", "ComputationalNotebook", "ConferenceProceeding", "PeerReview",
     # "Journal", "Instrument", "Image"}>
     def add_publication(related_item_info)
       # Type of related item
@@ -40,16 +42,16 @@ module Dwexp
       # Relationship type
       relation_type = related_item_info['relation_type'] || ''
 
-      !( non_publication_types.include?(item_type) || non_publication_relation_types.include?(relation_type) ) 
+      !(non_publication_types.include?(item_type) || non_publication_relation_types.include?(relation_type))
     end
 
     def non_publication_types
-      ['Dataset', 'Image', 'Software', 'ComputationalNotebook']
+      %w[Dataset Image Software ComputationalNotebook]
     end
 
     def non_publication_relation_types
-      ['HasVersion', 'IsVersionOf', 'HasPart', 'IsPartOf', 'IsPreviousVersionOf', 'IsNewVersionOf',
-    'IsVariantFormOf', 'IsIdenticalTo', 'IsOriginalFormOf']
+      %w[HasVersion IsVersionOf HasPart IsPartOf IsPreviousVersionOf IsNewVersionOf
+         IsVariantFormOf IsIdenticalTo IsOriginalFormOf]
     end
 
     def relation_type_label(relation_type, related_identifier_type)
@@ -65,14 +67,14 @@ module Dwexp
       when 'Cites'
         'Cites'
       when 'References'
-          'References'
+        'References'
       else
         'Related resources'
       end
     end
 
     def openalex_info_url
-      "#{root_path}openalex_info" 
+      "#{root_path}openalex_info"
     end
 
     def render?
