@@ -1,0 +1,20 @@
+version: "3.6"
+
+services:
+  solr:
+    image: solr:9.10.0
+    environment:
+      - SOLR_OPTS=-Dsolr.modules=analysis-extras
+    ports:
+      - "8983:8983"
+    volumes:
+      - solr-data:/var/solr
+      - ./solr/conf:/solr-setup/conf
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - blacklight-core
+      - /solr-setup/conf
+
+volumes:
+  solr-data:
