@@ -1,4 +1,6 @@
-module Dwexp  
+# frozen_string_literal: true
+
+module Dwexp
   class RightsComponent < ViewComponent::Base
     def initialize(document:)
       @rights_list = JSON.parse(document['rights_list_struct_ss'] || '[]')
@@ -10,6 +12,7 @@ module Dwexp
       return '' unless rights_item['rights_uri'].present? ||
                        rights_item['rights_identifier'].present? ||
                        rights_item['rights'].present?
+
       # Rights text can be the name of a license or an actual piece of text defining rights
       rights_text = rights_item['rights']
       uri = rights_item['rights_uri']
@@ -20,7 +23,7 @@ module Dwexp
       if id.present? && uri.present?
         display = "<a target='_blank' href='#{uri}'>#{id}</a>"
       # If only URI or only rights_text or id are present, display in some preference order
-      else 
+      else
         info_list = []
         info_list << rights_text if rights_text.present?
         info_list << id if id.present?

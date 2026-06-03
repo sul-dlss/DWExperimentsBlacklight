@@ -1,4 +1,6 @@
-module Dwexp  
+# frozen_string_literal: true
+
+module Dwexp
   class AccessComponent < ViewComponent::Base
     def initialize(document:)
       @access = document['access_ssi']

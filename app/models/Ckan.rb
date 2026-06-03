@@ -1,4 +1,6 @@
-class Ckan  
+# frozen_string_literal: true
+
+class Ckan
   require 'net/http'
 
   # Initialize independent of the specific URI to be used
@@ -8,7 +10,7 @@ class Ckan
 
   # This is not necessarily a single "file" but dataset as defined by the service
   def retrieve_metadata(source_identifier_ssi)
-    # Which identifier do we use to retrieve the data    
+    # Which identifier do we use to retrieve the data
     json_response(metadata_url(source_identifier_ssi))
   end
 
@@ -19,6 +21,6 @@ class Ckan
   end
 
   def metadata_url(source_identifier_ssi)
-    @base_datasets_url + "?id=" + source_identifier_ssi
+    "#{@base_datasets_url}?id=#{source_identifier_ssi}"
   end
 end

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Dwexp
   class ContributorTableComponent < ViewComponent::Base
-    def initialize(field:, **kwargs)
+    def initialize(field:, **_kwargs)
       super()
       @field = field
       @document = field.document
@@ -16,14 +18,14 @@ module Dwexp
 
     # Structured data for creators; by default they have no role, so we add "Creator"
     def creator_data
-      @creators ||= JSON.parse(@document[:creators_struct_ss] || '[]').tap do |creators|
+      @creator_data ||= JSON.parse(@document[:creators_struct_ss] || '[]').tap do |creators|
         creators.each { |creator| creator['role'] = 'Creator' }
       end
     end
 
     # Structured data for contributors
     def contributor_data
-      @contributors ||= JSON.parse(@document[:contributors_struct_ss] || '[]')
+      @contributor_data ||= JSON.parse(@document[:contributors_struct_ss] || '[]')
     end
   end
 end

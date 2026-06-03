@@ -4,19 +4,19 @@ require 'dotenv'
 Dotenv.load
 
 # Load DSL and set up stages
-require "capistrano/setup"
+require 'capistrano/setup'
 
 # Include default deployment tasks
-require "capistrano/deploy"
+require 'capistrano/deploy'
 
-require "capistrano/scm/git"
+require 'capistrano/scm/git'
 install_plugin Capistrano::SCM::Git
 
 require 'capistrano/bundler'
 require 'capistrano/rails'
 require 'capistrano/passenger'
 require 'dlss/capistrano'
-#require 'capistrano/sitemap_generator'
+# require 'capistrano/sitemap_generator'
 require 'capistrano/shared_configs'
 # Load the SCM plugin appropriate to your project:
 #
@@ -26,7 +26,6 @@ require 'capistrano/shared_configs'
 # require "capistrano/scm/svn"
 # install_plugin Capistrano::SCM::Svn
 # or
-
 
 # Include tasks from other gems included in your Gemfile
 #

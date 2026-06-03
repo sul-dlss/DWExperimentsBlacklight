@@ -1,36 +1,32 @@
+# frozen_string_literal: true
+
 module DataworksHelper
   # Try to render a human-readable display of related identifier information
   def render_related_identifiers(args)
     # Convert into array of objects
     args[:value].map do |arg|
-        parsed_json = JSON.parse(arg)
-        parsed_json.map do |val|
-            prefix_string = ""
-            relation_type = ""
-            id = "#{val['related_identifier']}"
-            if(val.key?('relation_type'))
-                relation_type = "#{val['relation_type']}: "
-            end
-            if(val.key?('related_identifier_type'))
-                prefix_string = "#{relation_type}#{val['related_identifier_type']}"
-            end
-            "#{prefix_string} #{id} #{display_remaining_keys(val, ['related_identifier', 'relation_type', 'related_identifier_type'])}"
-            # Display any other keys after
-        end.join('<br>')
-    end.join('').html_safe
-
+      parsed_json = JSON.parse(arg)
+      parsed_json.map do |val|
+        prefix_string = ''
+        relation_type = ''
+        id = val['related_identifier'].to_s
+        relation_type = "#{val['relation_type']}: " if val.key?('relation_type')
+        prefix_string = "#{relation_type}#{val['related_identifier_type']}" if val.key?('related_identifier_type')
+        "#{prefix_string} #{id} #{display_remaining_keys(val,
+                                                         %w[related_identifier relation_type
+                                                            related_identifier_type])}"
+        # Display any other keys after
+      end.join('<br>')
+    end.join.html_safe
   end
 
   def display_remaining_keys(val, exclude_keys)
     display_string = val.filter_map do |key, value|
-        next if exclude_keys.include?(key)
+      next if exclude_keys.include?(key)
 
-        "#{key}: #{value}"
-
+      "#{key}: #{value}"
     end.join(', ')
-    if display_string.length > 0
-        display_string = ", #{display_string}"
-    end
+    display_string = ", #{display_string}" if display_string.length.positive?
     display_string
   end
 
@@ -38,22 +34,25 @@ module DataworksHelper
   def display_funding_information(args)
     # args[:value] appears to always be an array, even when the field is single valued in Solr
     info = args[:value].map do |arg|
-        parsed_json = JSON.parse(arg)
-        # This is an array of objects
-        parsed_json.map do |val|
-            funder_name = val.key?('funder_name')? val['funder_name'] : ''
-            award_number = val.key?('award_number')? ", Award number #{val['award_number']}" : ''
-            award_uri = val.key?('award_uri')? ", #{val['award_uri']}" : ''
-            #add_facet_link('funders_ssim', funder_name)
-            "#{add_facet_link('funders_ssim', funder_name)}#{award_number}#{award_uri}#{display_remaining_keys(val, ['funder_name', 'award_number', 'award_uri'])}"
-        end.join('<br>')
-    end.join('')
+      parsed_json = JSON.parse(arg)
+      # This is an array of objects
+      parsed_json.map do |val|
+        funder_name = val.key?('funder_name') ? val['funder_name'] : ''
+        award_number = val.key?('award_number') ? ", Award number #{val['award_number']}" : ''
+        award_uri = val.key?('award_uri') ? ", #{val['award_uri']}" : ''
+        # add_facet_link('funders_ssim', funder_name)
+        "#{add_facet_link('funders_ssim',
+                          funder_name)}#{award_number}#{award_uri}#{display_remaining_keys(val,
+                                                                                           %w[funder_name
+                                                                                              award_number award_uri])}"
+      end.join('<br>')
+    end.join
 
     info.html_safe
   end
 
   def add_facet_link(facet_field, facet_value)
-    url =  "/?f[#{facet_field}][]=#{facet_value}"
+    url = "/?f[#{facet_field}][]=#{facet_value}"
     link_to(facet_value, url)
   end
 
@@ -63,26 +62,30 @@ module DataworksHelper
 
   def display_dates(args)
     args[:value].map do |arg|
-        parsed_json = JSON.parse(arg)
-        parsed_json.map do |val|
-            display = val['date']
-            display = "#{val['date_type']}: #{display}" if val['date_type'].present?
-        end.join('<br>')
+      parsed_json = JSON.parse(arg)
+      parsed_json.map do |val|
+        display = val['date']
+        "#{val['date_type']}: #{display}" if val['date_type'].present?
+      end.join('<br>')
     end.join(' ').html_safe
   end
 
   def display_rights(args)
     args[:value].map do |arg|
-        parsed_json = JSON.parse(arg)
-        parsed_json.map do |val|
-            rights = val['rights'] || ''
-            rights_uri = val['rights_uri'] || ''
-            rights_identifier = val['rights_identifier'] || ''
-            rights_identifier_scheme = val['rights_identifier_scheme'] || ''
-            rights_link = rights_uri.present? ? ", #{link_to('URI', rights_uri)}" : ''
-            rights_identifier_display = rights_identifier_scheme.present? ? ", #{rights_identifier_scheme}: #{rights_identifier}" : rights_identifier
-            "#{rights}#{rights_link} #{rights_identifier_display}"
-        end.join('<br>')
+      parsed_json = JSON.parse(arg)
+      parsed_json.map do |val|
+        rights = val['rights'] || ''
+        rights_uri = val['rights_uri'] || ''
+        rights_identifier = val['rights_identifier'] || ''
+        rights_identifier_scheme = val['rights_identifier_scheme'] || ''
+        rights_link = rights_uri.present? ? ", #{link_to('URI', rights_uri)}" : ''
+        rights_identifier_display = if rights_identifier_scheme.present?
+                                      ", #{rights_identifier_scheme}: #{rights_identifier}"
+                                    else
+                                      rights_identifier
+                                    end
+        "#{rights}#{rights_link} #{rights_identifier_display}"
+      end.join('<br>')
     end.join(' ').html_safe
   end
 
@@ -92,7 +95,7 @@ module DataworksHelper
 
   def display_facet_separate_lines(args)
     field = args[:field]
-    args[:value].sort.map do|val|
+    args[:value].sort.map do |val|
       add_facet_link(field, val)
     end.join('<br>').html_safe
   end
@@ -103,17 +106,17 @@ module DataworksHelper
     # Filter out any providers that are already in the main URL
     args[:value].map do |arg|
       parsed_json = JSON.parse(arg)
-      parsed_json.map do |provider, id|
+      parsed_json.filter_map do |provider, id|
         next if url.include?(provider.downcase)
 
         "<a target='_blank' href='#{provider_url_link_for_id(provider.downcase, id)}'>#{provider.titleize}</a>"
-      end.compact.join('<br>')
-    end.join('').html_safe
+      end.join('<br>')
+    end.join.html_safe
   end
 
   # Define allowed tags and attributes for sanitization
-  ALLOWED_TAGS = %w(a b i em strong p ul ol li br table thead tbody tr th td colgroup col).freeze
-  ALLOWED_ATTRIBUTES = %w(href).freeze
+  ALLOWED_TAGS = %w[a b i em strong p ul ol li br table thead tbody tr th td colgroup col].freeze
+  ALLOWED_ATTRIBUTES = %w[href].freeze
 
   # Sanitize HTML/XML in rich text fields and render line breaks.
   def render_rich_text(args)
@@ -121,7 +124,7 @@ module DataworksHelper
       # If there are newlines in between tags or in running text, they will get
       # converted to <br> tags by simple_format, which we don't want. We sanitize
       # first, then clean up any undesired newlines that may result.
-      input = sanitize(CGI::unescapeHTML(arg), tags: ALLOWED_TAGS, attributes: ALLOWED_ATTRIBUTES)
+      input = sanitize(CGI.unescapeHTML(arg), tags: ALLOWED_TAGS, attributes: ALLOWED_ATTRIBUTES)
         .gsub(/>\n+\s*</, '><')
         .gsub(/([^>])\n ([^<])/, '\1 \2')
 
@@ -142,10 +145,10 @@ module DataworksHelper
   # word boundaries.
   def render_rich_text_preview(args)
     sanitize(truncate(
-      safe_join(args[:value].map { |arg| sanitize(CGI::unescapeHTML(arg), tags: %w(em i)) }),
-      length: 500,
-      escape: false,
-      separator: ' '
-    ), tags: %w(em i))
+               safe_join(args[:value].map { |arg| sanitize(CGI.unescapeHTML(arg), tags: %w[em i]) }),
+               length: 500,
+               escape: false,
+               separator: ' '
+             ), tags: %w[em i])
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Dwexp
   class StanfordDatasetFacetComponent < Blacklight::FacetFieldComponent
     # We only care about the first item since this facet only has one value

@@ -1,8 +1,10 @@
-# config valid for current version and patch releases of Capistrano
-#lock "~> 3.18.1"
+# frozen_string_literal: true
 
-set :application, "dwexp"
-set :repo_url, "git@github.com:sul-dlss/DWExperimentsBlacklight.git"
+# config valid for current version and patch releases of Capistrano
+# lock "~> 3.18.1"
+
+set :application, 'dwexp'
+set :repo_url, 'git@github.com:sul-dlss/DWExperimentsBlacklight.git'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -14,7 +16,7 @@ else
 end
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/opt/app/dwexp/dwexp"
+set :deploy_to, '/opt/app/dwexp/dwexp'
 
 set :rails_env, 'production'
 # Default value for :format is :airbrussh.
@@ -29,11 +31,11 @@ set :rails_env, 'production'
 
 # Default value for :linked_files is []
 # append :linked_files, "config/database.yml", 'config/master.key'
-set :linked_files, %w{config/database.yml config/blacklight.yml config/secrets.yml}
+set :linked_files, %w[config/database.yml config/blacklight.yml config/secrets.yml]
 
 # Default value for linked_dirs is []
 # append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system", "vendor", "storage"
-set :linked_dirs, %w(log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads config/settings)
+set :linked_dirs, %w[log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads config/settings]
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
