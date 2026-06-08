@@ -1,19 +1,5 @@
-<nav id="skip-link" class="visually-hidden-focusable" aria-label="Skip links">
-  <div class="container-xl">
-    <a class="d-inline-flex m-1 py-2 px-3" href="#search_field">Skip to search</a>
-    <a class="d-inline-flex m-1 py-2 px-3" href="#main-container">Skip to main content</a>
-    <a class="d-inline-flex m-1 py-2 px-3" href="#documents">Skip to first result</a>
-  </div>
-</nav>
 <header class="mb-3">
-  <%# render 'shared/stanford_stripe' %>
-  <%# render 'shared/top_bar' %>
-  <%# render 'shared/masthead' %>
-  <div class="identity-bar">
-    <div class="container">
-      <a class="su-brand-bar__logo" href="https://www.stanford.edu">Stanford University</a>
-    </div>
-  </div>
+  <%= render Dwexp::IdentityBarComponent.new %>
   <nav class="navbar navbar-expand-md bg-dark sky-dark">
     <div class="container">
       <a class="mb-0 navbar-brand navbar-logo" href="https://library.stanford.edu" aria-label="Stanford University Libraries"></a>
@@ -127,6 +113,6 @@
       </div>
     </div>
   </div>
-  <%= render 'shared/banner' %>
   <%= search_bar %>
+  <%= render 'shared/banner' %>
 </header>

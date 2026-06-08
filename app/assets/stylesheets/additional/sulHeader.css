@@ -1,4 +1,4 @@
-
+/* Beta banner */
 .beta-banner {
   background-color: #fedd5c;
   color: #000;
@@ -8,14 +8,26 @@
   }
 }
 
+/* Navbar */
+.navbar-logo {
+  background-size: auto;
+}
+
+/* Search bar */
+search {
+  width: 100%;
+  max-width: 700px;
+}
+
 .search-query-form .search-field {
   width: auto;
   flex: 0 1 auto;
 }
 
-search {
-  width: 100%;
-  max-width: 1000px;
+.search-card .input-group > .search-autocomplete-wrapper .search-q {
+  border-left: none;
+
+  @media (width >= 576px) {
+    border-left: var(--bs-border-width) solid var(--bs-border-color);
+  }
 }
-
-
