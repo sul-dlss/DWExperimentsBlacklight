@@ -52,7 +52,7 @@ class CatalogController < ApplicationController # rubocop:disable Metrics/ClassL
     # config.index.document_presenter_class = MyApp::IndexPresenter
 
     # Some components can be configured
-    # config.index.document_component = MyApp::SearchResultComponent
+    config.index.document_component = DocumentComponent
     # config.index.constraints_component = MyApp::ConstraintsComponent
     config.index.search_bar_component = Dwexp::SearchBarComponent
     config.index.dropdown_component = Dwexp::DropdownComponent
@@ -152,14 +152,6 @@ class CatalogController < ApplicationController # rubocop:disable Metrics/ClassL
     # previously. Simply remove these lines if you'd rather use Solr request
     # handler defaults, or have no facets.
     config.add_facet_fields_to_solr_request!
-
-    # solr fields to be displayed in the index (search results) view
-    #   The ordering of the field names is the order of the display
-    # config.add_index_field 'title_tsim', label: 'Title'
-    config.add_index_field 'url_ss', label: 'Access Data', helper_method: :url_link
-    # config.add_index_field 'provider_ssi', label: 'Provider'
-    config.add_index_field 'descriptions_tsim', label: 'Description', helper_method: :render_rich_text_preview
-    config.add_index_field 'variables_tsim', label: 'Variables'
 
     # Show fields
     # config.add_show_field 'title_tsim', label: 'Title'

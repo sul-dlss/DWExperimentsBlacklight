@@ -7,3 +7,5 @@ en:
           doi: DOI
           author: Contributor
       search_bar_button: "Search"
+    index_access:
+      button: "Access data"
