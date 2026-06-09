@@ -155,7 +155,6 @@ class CatalogController < ApplicationController # rubocop:disable Metrics/ClassL
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     # config.add_index_field 'title_tsim', label: 'Title'
-    config.add_index_field 'version_ss', label: 'Version'
     config.add_index_field 'url_ss', label: 'Access Data', helper_method: :url_link
     # config.add_index_field 'provider_ssi', label: 'Provider'
     config.add_index_field 'descriptions_tsim', label: 'Description', helper_method: :render_rich_text_preview
