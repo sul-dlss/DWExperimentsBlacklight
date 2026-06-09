@@ -147,11 +147,11 @@
   }
 }
 
-/* Cardinal red badges */
-.badge.text-bg-cardinal {
-  --bs-badge-color: #fff;
-  --bs-badge-font-size: 0.75rem;
-  background-color: var(--stanford-cardinal);
+/* Stanford authored badge */
+.badge.stanford-authored {
+  --bs-badge-color: var(--stanford-cardinal);
+  background-color: var(--stanford-fog-light);
+  font-size: 0.75rem;
 }
 
 /* Mail icon */

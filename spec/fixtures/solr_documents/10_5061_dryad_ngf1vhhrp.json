@@ -20,5 +20,7 @@
   "creators_struct_ss":"[{\"name\":\"Alexandra Trelle\",\"name_type\":\"Personal\",\"name_identifiers\":[{\"name_identifier\":\"0000-0003-2837-8753\",\"name_identifier_scheme\":\"ORCID\"}],\"affiliation\":[{\"name\":\"Stanford University\",\"affiliation_identifier\":\"https://ror.org/00f54p054\",\"affiliation_identifier_scheme\":\"ROR\"}]}]",
   "dates_struct_ss":"[{\"date\":\"2021-12-10\",\"date_type\":\"Issued\"},{\"date\":\"2020-12-11\",\"date_type\":\"Updated\"}]",
   "rights_list_struct_ss":"[{\"rights_uri\":\"https://spdx.org/licenses/CC0-1.0.html\"}]",
-  "related_identifiers_struct_ss":"[{\"related_identifier\":\"0028-3878\",\"related_identifier_type\":\"ISSN\"}]"
+  "related_identifiers_struct_ss":"[{\"related_identifier\":\"0028-3878\",\"related_identifier_type\":\"ISSN\"}]",
+  "stanford_contributor_bsi":true,
+  "stanford_dataset_bsi":true
 }
