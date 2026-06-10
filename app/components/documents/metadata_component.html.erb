@@ -1,0 +1,7 @@
+<div class="document-metadata">
+  <% if @document.description.present? %>
+    <p class="document-description"><%= description_preview %></p>
+  <% end %>
+
+  <%= render Documents::IndexAccessComponent.new(document: @document) %>
+</div>

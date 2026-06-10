@@ -169,14 +169,14 @@ h5 { --sul-header-font-size: 1.0rem; }
   --sul-header-font-size: 1.25rem;
 }
 
-/* Search widget buttons - sort/per page */
+/* Compact button */
 .search-widgets .btn,
-.clear-bookmarks {
+.clear-bookmarks,
+.btn-compact {
   --bs-btn-font-size: 0.875rem;
   --bs-border-radius: 4px;
   --bs-btn-padding-x: 6px;
   --bs-btn-padding-y: 2px;
-  --bs-btn-line-height: 1;
-  height: 1.6rem;
+  --bs-btn-line-height: 1.5;
   align-self: center;
 }
