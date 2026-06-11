@@ -3,6 +3,11 @@
   --bs-dark: #016895;
 }
 
+.documents-list {
+  --bl-results-document-margin-top: 0;
+  --bl-results-document-padding-top: 0.5rem;
+}
+
 .dl-invert dt {
   text-align: left;
   font-size: 20px;
@@ -16,8 +21,13 @@
   padding-bottom: 1px;
 }
 
-.documentHeader {
+.paginate-section {
   padding-bottom: 1rem;
+}
+
+.page-links {
+  margin-top: 1rem;
+  padding-bottom: 0;
 }
 
 .documents-list .document {
@@ -166,7 +176,7 @@ h4 { --sul-header-font-size: 1.0rem; }
 h5 { --sul-header-font-size: 1.0rem; }
 
 .documents-list .document h3.document-title-heading {
-  --sul-header-font-size: 1.25rem;
+  --sul-header-font-size: 1.125rem;
 }
 
 /* Expand/collapse text styles */
