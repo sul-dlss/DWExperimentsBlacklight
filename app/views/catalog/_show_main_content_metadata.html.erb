@@ -20,7 +20,7 @@
 <% if @document.key?("provider_identifier_ssi") && @document['provider_ssi'] !=  'Local' %>
 
 <div class="document-main-section provider-metadata">
-  <header class="documentHeader row"><h3>Metadata from provider</h3><input type="button" id="toggle-external" value="Display"></header>
+  <header class="documentHeader row pb-2"><h3>Metadata from provider</h3><input type="button" id="toggle-external" value="Display"></header>
   <div id="external-metadata" class="d-none border">
     <% metadata = external_metadata(@document["provider_ssi"], @document["provider_identifier_ssi"]) %>      
     <%= metadata %>
