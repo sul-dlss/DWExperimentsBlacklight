@@ -22,7 +22,7 @@ Lint/MissingSuper:
 # Offense count: 2
 Lint/NoReturnInBeginEndBlocks:
   Exclude:
-    - 'app/components/dwexp/contributor_row_component.rb'
+    - 'app/components/show/contributor_row_component.rb'
 
 # Offense count: 5
 # Configuration parameters: AllowedMethods, AllowedPatterns, CountRepeatedAttributes.

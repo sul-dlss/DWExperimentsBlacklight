@@ -1,5 +1,5 @@
-<dt><%= @field.label %></dt>
-<dd>
+<div id="contributors" class="mb-4">
+  <h2><%= t('.heading') %></h2>
   <table class="table table-sm m-2">
     <thead class="visually-hidden">
       <tr>
@@ -10,8 +10,8 @@
     </thead>
     <tbody>
       <% contributors.each do |contributor| %>
-        <%= render Dwexp::ContributorRowComponent.new(field: @field, contributor: contributor) %>
+        <%= render Show::ContributorRowComponent.new(facet_field: FACET_FIELD, contributor: contributor) %>
       <% end %>
     </tbody>
   </table>
-</dd>
+</div>
