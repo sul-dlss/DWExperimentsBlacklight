@@ -1,0 +1,20 @@
+<nav class="record-toolbar" aria-label="<%= t('.aria_label') %>">
+  <ul class="nav navbar justify-content-start d-inline-flex gap-2 border rounded px-1 py-0">
+    <li>
+      <button class="btn nav-link icon-link" type="button"
+              data-controller="copy-link"
+              data-action="click->copy-link#copyLink"
+              data-copy-link-url-value="<%= copy_url %>"
+              data-copy-link-message-value="<%= t('.link_copied') %>"
+              data-copy-link-error-value="<%= t('.copy_failed') %>">
+        <%= render Icons::LinkComponent.new(aria_hidden: true) %><%= t('.copy_link') %>
+      </button>
+    </li>
+    <li>
+      <button class="btn nav-link icon-link" type="button"
+              onclick="window.print()">
+        <%= render Icons::PrinterComponent.new(aria_hidden: true) %><%= t('.print') %>
+      </button>
+    </li>
+  </ul>
+</nav>
