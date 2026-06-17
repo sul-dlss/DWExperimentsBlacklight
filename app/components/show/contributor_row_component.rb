@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
-module Dwexp
+module Show
+  # Renders a single row in the Show::ContributorTableComponent: a contributor's
+  # name, collaborators link, and affiliations.
   class ContributorRowComponent < ViewComponent::Base
-    def initialize(field:, contributor:)
+    def initialize(facet_field:, contributor:)
       super()
-      @field = field
+      @facet_field = facet_field
       @contributor = contributor
     end
 
@@ -13,7 +15,7 @@ module Dwexp
     # Render the contributor's name with a link to search results
     def render_name
       tag.div do
-        link_to(@contributor['name'], search_catalog_path(f: { @field.field_config.key => [@contributor['name']] })) +
+        link_to(@contributor['name'], search_catalog_path(f: { @facet_field => [@contributor['name']] })) +
           render_orcid_link +
           render_profile_link
       end
@@ -69,7 +71,7 @@ module Dwexp
 
     # Render a link to view the modal of collaborators for this contributor
     def render_collaborators_link
-      link_to(collaborators_catalog_path(f: { 'contributors_ssim' => [@contributor['name']] }),
+      link_to(collaborators_catalog_path(f: { @facet_field => [@contributor['name']] }),
               data: { blacklight_modal: 'trigger', turbo: false }) do
         tag.i(class: 'bi bi-people-fill me-1', aria: { hidden: true }) +
           tag.span(@contributor['name'], class: 'visually-hidden') +

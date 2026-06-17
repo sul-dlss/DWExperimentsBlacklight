@@ -67,6 +67,8 @@ en:
       heading: "Content/Summary"
       show_more: "Show more"
       show_less: "Show less"
+    contributor_table_component:
+      heading: "Contributors"
     subjects_component:
       heading: "Subjects"
       show_more: "Show more"
