@@ -1,7 +1,10 @@
-<div class="<%= header_container_classes %>">
-  <div class="d-flex flex-wrap align-items-center gap-3 justify-content-center justify-content-lg-start">
-    <%= render applied_params_component %>
-    <%= render pagination_component %>
+<div class="pagination-search-widgets pb-3 mb-3 d-flex flex-wrap align-items-center gap-3 justify-content-center justify-content-lg-between">
+  <div class="search-context-nav d-flex flex-wrap align-items-center gap-3 justify-content-center justify-content-lg-start">
+    <% if search_context? %>
+      <%= render applied_params_component %>
+      <%= render pagination_component %>
+    <% end %>
   </div>
+  <%= render Show::ToolbarComponent.new(document: document) %>
   <%= render_header_tools %>
 </div>

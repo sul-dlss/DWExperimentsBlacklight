@@ -75,3 +75,9 @@ en:
       heading: "Subjects"
       show_more: "Show more"
       show_less: "Show less"
+    toolbar_component:
+      aria_label: "Tools"
+      copy_failed: "Unable to copy link"
+      copy_link: "Copy link"
+      link_copied: "Link copied to clipboard"
+      print: "Print"

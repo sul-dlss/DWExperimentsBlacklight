@@ -39,6 +39,12 @@
       </div>
     </main>
 
+    <div id="toast-area" data-turbo-permanent class="toast-container position-fixed bottom-0 end-0 p-3" data-controller="toast-container" data-action="show-toast@window->toast-container#showToast">
+      <template id="toast-template">
+        <%= render ToastComponent.new %>
+      </template>
+    </div>
+
     <%= render partial: 'shared/footer' %>
     <%= render partial: 'shared/modal' %>
   </body>

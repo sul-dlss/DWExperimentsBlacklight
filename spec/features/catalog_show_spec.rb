@@ -15,4 +15,12 @@ RSpec.describe 'Catalog show' do
     expect(page).to have_text('10.5061/dryad.ngf1vhhrp')
     expect(page).to have_text('2021')
   end
+
+  it 'renders the record toolbar with copy link and print tools' do
+    visit "/catalog/#{doc_id}"
+    within('nav.record-toolbar') do
+      expect(page).to have_button('Copy link')
+      expect(page).to have_button('Print')
+    end
+  end
 end

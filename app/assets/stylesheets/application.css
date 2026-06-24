@@ -39,6 +39,15 @@
   border-bottom: 0;
 }
 
+/* Below lg, the search-results link + paging controls fill the row so the
+   record toolbar wraps onto its own centered line below them. At lg+ the
+   header row uses justify-content-between, so the toolbar aligns right. */
+@media (max-width: 991.98px) {
+  .search-context-nav {
+    width: 100%;
+  }
+}
+
 .documents-list .document {
   border-bottom: 1px solid var(--stanford-20-black);
 }
@@ -291,4 +300,50 @@ h5 { --sul-header-font-size: 1.0rem; }
   --bs-btn-padding-y: 2px;
   --bs-btn-line-height: 1.5;
   align-self: center;
+}
+
+/* Record toolbar (copy link, print) at the top of the show page */
+.record-toolbar {
+  --item-padding-x: 0.25rem;
+  --bs-link-decoration: none;
+  --bs-link-hover-color: var(--bs-btn-hover-color);
+
+  .btn {
+    --bs-btn-padding-x: var(--item-padding-x);
+  }
+
+  .nav-link {
+    --bs-nav-link-color: var(--stanford-80-black);
+    --bs-nav-link-padding-y: 0.25rem;
+    --bs-nav-link-padding-x: var(--item-padding-x);
+  }
+}
+
+/* Hide the record toolbar when printing */
+@media print {
+  .record-toolbar {
+    display: none !important;
+  }
+}
+
+/* Toast notifications (e.g. "Link copied to clipboard") */
+.toast {
+  --bs-toast-bg: var(--stanford-90-black);
+  --bs-toast-color: white;
+  --bs-toast-padding-x: 1rem;
+  --bs-toast-padding-y: 1rem;
+  --bs-toast-border-radius: 0rem;
+  --bs-toast-border-color: transparent;
+
+  transform: translateX(calc(100% + 30px));
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.25, 1.35);
+
+  &.show {
+    transform: translateX(0);
+  }
+
+  &.showing {
+    opacity: 1;
+    transform: translateX(calc(100% + 30px));
+  }
 }
