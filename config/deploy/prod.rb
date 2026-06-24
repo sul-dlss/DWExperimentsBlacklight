@@ -4,4 +4,3 @@ server 'dataworks-ui-prod.stanford.edu', user: 'dataworks-ui', roles: %w[web db 
 
 Capistrano::OneTimeKey.generate_one_time_key!
 set :rails_env, 'production'
-
