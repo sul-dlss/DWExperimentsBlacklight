@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-RSpec.describe Dwexp::HeaderComponent, type: :component do
+RSpec.describe HeaderComponent, type: :component do
   let(:blacklight_config) do
     Blacklight::Configuration.new.configure do |config|
       config.add_search_field('all_fields', label: 'All Fields')
-      config.index.search_bar_component = Dwexp::SearchBarComponent
+      config.index.search_bar_component = Index::SearchBarComponent
     end
   end
 

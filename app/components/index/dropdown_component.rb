@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Dwexp
+module Index
   class DropdownComponent < Blacklight::System::DropdownComponent
     def before_render
       # this is overriding the default button classes set in Blacklight

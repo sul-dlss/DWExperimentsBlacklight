@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Dwexp
+module Index
   class StanfordDatasetFacetComponent < ViewComponent::Base
     FACET_FIELD = 'stanford_contributor_bsi'
 
