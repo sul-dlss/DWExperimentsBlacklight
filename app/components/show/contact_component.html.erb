@@ -6,7 +6,7 @@
         <h3><%= contact['name'] %></h3>
       <% end %>
       <% if contact['email'].present? %>
-        <%= render(Icons::EnvelopeFillComponent.new(classes: 'mail me-1', aria_hidden: true)) %><%= mail_to contact['email'] %>
+        <%= render Icons::EnvelopeFillComponent.new(classes: 'mail me-1', aria_hidden: true) %><%= mail_to contact['email'] %>
       <% end %>
     </div>
   <% end %>

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Dwexp
+module Index
   class BrowseComponent < ViewComponent::Base
     def initialize(facet_field:, display_type:, view_all: nil)
       super

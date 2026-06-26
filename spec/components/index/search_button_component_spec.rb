@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Dwexp::SearchButtonComponent, type: :component do
+RSpec.describe Index::SearchButtonComponent, type: :component do
   subject(:component) { described_class.new(id: 'search', text: 'Search') }
 
   before { render_inline(component) }

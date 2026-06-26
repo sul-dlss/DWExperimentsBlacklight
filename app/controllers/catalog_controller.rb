@@ -55,11 +55,11 @@ class CatalogController < ApplicationController
     # Some components can be configured
     config.index.document_component = Index::DocumentComponent
     # config.index.constraints_component = MyApp::ConstraintsComponent
-    config.index.search_bar_component = Dwexp::SearchBarComponent
-    config.index.dropdown_component = Dwexp::DropdownComponent
+    config.index.search_bar_component = Index::SearchBarComponent
+    config.index.dropdown_component = Index::DropdownComponent
     # config.index.search_header_component = MyApp::SearchHeaderComponent
     # config.index.document_actions.delete(:bookmark)
-    config.header_component = Dwexp::HeaderComponent
+    config.header_component = HeaderComponent
     config.logo_link = 'https://library.stanford.edu'
     config.advanced_search.enabled = false
 
@@ -118,7 +118,7 @@ class CatalogController < ApplicationController
     # :index_range can be an array or range of prefixes that will be used to create the navigation
     # (note: It is case sensitive when searching values)
 
-    config.index.facet_group_component = Dwexp::FacetGroupComponent
+    config.index.facet_group_component = Index::FacetGroupComponent
     config.add_facet_field 'stanford_contributor_bsi', show: false
     config.add_facet_field 'access_ssi'
     config.add_facet_field 'provider_ssi', show: false

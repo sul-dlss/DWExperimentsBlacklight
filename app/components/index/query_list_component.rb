@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Dwexp
+module Index
   class QueryListComponent < ViewComponent::Base
     def initialize(query:, sort: nil)
       super

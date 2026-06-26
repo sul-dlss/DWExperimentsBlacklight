@@ -31,7 +31,7 @@
       <% end %>
 
       <%= append %>
-      <%= render(Dwexp::SearchButtonComponent.new(id: "#{@prefix}search", text: scoped_t('submit'))) %>
+      <%= render Index::SearchButtonComponent.new(id: "#{@prefix}search", text: scoped_t('submit')) %>
     </div>
   <% end %>
 

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Dwexp::DocumentTitleComponent, type: :component do
+RSpec.describe DocumentTitleComponent, type: :component do
   let(:view_context) { vc_test_controller.view_context }
   let(:blacklight_config) do
     CatalogController.blacklight_config.deep_copy.tap do |config|

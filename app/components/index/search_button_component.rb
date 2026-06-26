@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Dwexp
+module Index
   class SearchButtonComponent < Blacklight::SearchButtonComponent
     def call
       tag.div(class: 'search-btn-wrapper rounded-end d-flex') do
