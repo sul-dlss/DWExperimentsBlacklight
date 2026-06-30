@@ -11,12 +11,11 @@ en:
       fields:
         facet:
           access_ssi: "Access"
-          department_ssim: "Stanford department"
           funders_ssim: "Funder"
           language_ssi: "Language"
           formats_ssim: "Format"
           publication_year_isi: "Publication year"
-          publisher_ssi: "Publisher"
+          publisher_ssi: "Available at"
           provider_ssi: "Provider"
           stanford_contributor_bsi: "Stanford-authored only"
           subjects_ssim: "Subject"

@@ -57,6 +57,8 @@ class CatalogController < ApplicationController
     # config.index.constraints_component = MyApp::ConstraintsComponent
     config.index.search_bar_component = Index::SearchBarComponent
     config.index.dropdown_component = Index::DropdownComponent
+    config.index.facet_group_component = Index::FacetGroupComponent
+
     # config.index.search_header_component = MyApp::SearchHeaderComponent
     # config.index.document_actions.delete(:bookmark)
     config.header_component = HeaderComponent
@@ -118,19 +120,19 @@ class CatalogController < ApplicationController
     # :index_range can be an array or range of prefixes that will be used to create the navigation
     # (note: It is case sensitive when searching values)
 
-    config.index.facet_group_component = Index::FacetGroupComponent
     config.add_facet_field 'stanford_contributor_bsi', show: false
     config.add_facet_field 'access_ssi'
-    config.add_facet_field 'provider_ssi', show: false
+    config.add_facet_field 'publisher_ssi', limit: 15 # rename Available at
     config.add_facet_field 'contributors_ssim', limit: 15
-    config.add_facet_field 'funders_ssim', limit: 15
-    config.add_facet_field 'publisher_ssi', limit: 15
-    config.add_facet_field 'publication_year_isi', limit: 15
-    config.add_facet_field 'temporal_isim', limit: 15
-    config.add_facet_field 'subjects_ssim', limit: 15
-    config.add_facet_field 'language_ssi', show: false
     config.add_facet_field 'formats_ssim', limit: 15
-    config.add_facet_field 'department_ssim', limit: 15
+    config.add_facet_field 'publication_year_isi', limit: 15
+    config.add_facet_field 'subjects_ssim', limit: 15
+    config.add_facet_field 'temporal_isim', limit: 15
+
+    # Configured as facets for metadata record click to search functionality,
+    # but not displayed in the facet sidebar
+    config.add_facet_field 'funders_ssim', show: false
+    config.add_facet_field 'language_ssi', show: false
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
