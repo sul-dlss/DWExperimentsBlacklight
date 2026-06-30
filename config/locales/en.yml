@@ -46,6 +46,8 @@ en:
       message_required: "A message is required"
   header:
     beta_badge: "Beta"
+  header_component:
+    feedback: "Feedback"
   index:
     access_component:
       button: "Access data"

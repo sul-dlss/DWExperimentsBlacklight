@@ -26,4 +26,8 @@ RSpec.describe HeaderComponent, type: :component do
   it 'renders the search bar' do
     expect(page).to have_css('form.search-query-form')
   end
+
+  it 'renders a feedback link labeled "Feedback"' do
+    expect(page).to have_link('Feedback', href: '/feedback/new')
+  end
 end
