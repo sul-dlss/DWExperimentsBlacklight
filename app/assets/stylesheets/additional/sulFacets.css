@@ -168,17 +168,19 @@
    Date range facet
    ============================================================ */
 
-#facet-date_range {
-  .distribution,
-  .more_facets,
-  .facet-values.missing,
-  .facet-count {
-    display: none;
-  }
+.chart-wrapper {
+  background-color: var(--stanford-fog-light);
+}
 
-  p.range.subsection {
-    .facet-limit-active & {
-      display: none;
-    }
-  }
+.range_limit_form input[type="number"] {
+  width: 5rem;
+  font-weight: 600;
+}
+
+.range-limit-reset {
+  --bs-btn-color: var(--bs-primary);
+  --bs-btn-hover-color: var(--bs-primary);
+  --bs-btn-active-color: var(--bs-primary);
+  --bs-btn-active-bg: transparent;
+  --bs-btn-active-border-color: transparent;
 }

@@ -4,9 +4,11 @@ Rails.application.routes.draw do
   mount Blacklight::Engine => '/'
   root to: 'landing_page#index'
   concern :searchable, Blacklight::Routes::Searchable.new
+  concern :range_searchable, BlacklightRangeLimit::Routes::RangeSearchable.new
 
   resource :catalog, only: [], as: 'catalog', path: '/catalog', controller: 'catalog' do
     concerns :searchable
+    concerns :range_searchable
     get 'contributor', to: 'catalog#contributor', as: 'contributor'
     get 'facet_results/:id', to: 'catalog#facet_results', as: 'facet_results'
   end

@@ -3,6 +3,7 @@
 # Blacklight controller that handles searches and document requests
 class CatalogController < ApplicationController
   include Blacklight::Catalog
+  include BlacklightRangeLimit::ControllerOverride
   include ContributorModal
 
   before_action only: :index do
@@ -139,9 +140,17 @@ class CatalogController < ApplicationController
     config.add_facet_field 'publisher_ssi', limit: 6, component: Index::FacetSearchComponent
     config.add_facet_field 'contributors_ssim', limit: 6, component: Index::FacetSearchComponent
     config.add_facet_field 'formats_ssim', limit: 6, component: Index::FacetSearchComponent
-    config.add_facet_field 'publication_year_isi', limit: 6
+    config.add_facet_field 'publication_year_isi',
+                           range: { textual_facets_collapsible: false,
+                                    chart_segment_bg_color: '#6FC3FF' },
+                           component: Index::RangeFacetComponent,
+                           item_presenter: Index::RangeFacetItemPresenter
     config.add_facet_field 'subjects_ssim', limit: 6, component: Index::FacetSearchComponent
-    config.add_facet_field 'temporal_isim', limit: 6
+    config.add_facet_field 'temporal_isim',
+                           range: { textual_facets_collapsible: false,
+                                    chart_segment_bg_color: '#6FC3FF' },
+                           component: Index::RangeFacetComponent,
+                           item_presenter: Index::RangeFacetItemPresenter
 
     # Configured as facets for metadata record click to search functionality,
     # but not displayed in the facet sidebar
