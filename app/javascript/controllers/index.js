@@ -10,3 +10,6 @@ eagerLoadControllersFrom("controllers", application)
 
 import RelatedPublicationsController from "controllers/related_publications_controller"
 application.register("related-publications", RelatedPublicationsController)
+
+import FacetSearchController from "controllers/facet_search_controller"
+application.register("facet-search", FacetSearchController)

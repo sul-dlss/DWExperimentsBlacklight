@@ -1,4 +1,167 @@
-/* Date Range Facet */
+/* ============================================================
+   Sidebar facets
+   ============================================================ */
+
+/* The component library styles the expanded selected-facet header (dark text
+   on --stanford-fog-light) but leaves the collapsed state's text color, hover
+   and active colors, and the chevron at Blacklight's white, which is invisible
+   on the light header. Fill that gap so every state stays dark. */
+.facets .facet-limit-active .accordion-button {
+  --bs-accordion-btn-color: var(--stanford-black);
+  --bs-btn-hover-color: var(--stanford-black);
+  --bs-btn-active-color: var(--stanford-black);
+  --bs-accordion-btn-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%232e2d29' stroke-linecap='round' stroke-linejoin='round'><path d='m2 5 6 6 6-6'/></svg>");
+  --bs-accordion-btn-active-icon: var(--bs-accordion-btn-icon);
+}
+
+/* The component library sets the accordion's link color to the dark accordion
+   text color so facet value links read as plain text. The "Browse all" link
+   inherits that; restore the standard link blue for it. */
+.facets .more_facets a {
+  --bs-link-color-rgb: var(--sul-link-color-rgb);
+}
+
+/* Sidebar facet search results: render the filtered values as a floating
+   dropdown (like .dropdown-menu, but shown via CSS on focus/hover instead of
+   Bootstrap's JS). Ported from SearchWorks. */
+.facet-search-results {
+  /* dropdown-menu tokens */
+  --bs-dropdown-zindex: 1000;
+  --bs-dropdown-min-width: 10rem;
+  --bs-dropdown-padding-x: 0;
+  --bs-dropdown-padding-y: 0.5rem;
+  --bs-dropdown-font-size: 1rem;
+  --bs-dropdown-color: var(--bs-body-color);
+  --bs-dropdown-bg: var(--bs-body-bg);
+  --bs-dropdown-border-color: var(--bs-border-color-translucent);
+  --bs-dropdown-border-radius: var(--bs-border-radius);
+  --bs-dropdown-border-width: var(--bs-border-width);
+  --bs-dropdown-box-shadow: var(--bs-box-shadow);
+  --bs-dropdown-link-hover-color: var(--bs-body-color);
+  --bs-dropdown-link-hover-bg: var(--bs-tertiary-bg);
+  --bs-dropdown-item-padding-x: 1rem;
+  --bs-dropdown-item-padding-y: 0.25rem;
+
+  position: absolute;
+  z-index: var(--bs-dropdown-zindex);
+  display: none;
+  min-width: var(--bs-dropdown-min-width);
+  padding: var(--bs-dropdown-padding-y) var(--bs-dropdown-padding-x);
+  margin: 0;
+  font-size: var(--bs-dropdown-font-size);
+  color: var(--bs-dropdown-color);
+  text-align: left;
+  list-style: none;
+  background-color: var(--bs-dropdown-bg);
+  background-clip: padding-box;
+  border: var(--bs-dropdown-border-width) solid var(--bs-dropdown-border-color);
+  border-radius: var(--bs-dropdown-border-radius);
+  box-shadow: var(--bs-dropdown-box-shadow);
+
+  li {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    padding: var(--bs-dropdown-item-padding-y) var(--bs-dropdown-item-padding-x);
+
+    &:hover,
+    &:focus,
+    &:focus-within {
+      color: var(--bs-dropdown-link-hover-color);
+      background-color: var(--bs-dropdown-link-hover-bg);
+    }
+  }
+}
+
+[data-controller="facet-search"]:focus-within .facet-search-results,
+.facet-search-results:focus-within,
+.facet-search-results:hover {
+  display: block !important;
+}
+
+/* Off-canvas facets */
+#offcanvas-facets {
+  --bs-offcanvas-height: 80%;
+}
+
+/* Bootstrap sets flex-grow: 0 on offcanvas-body above the breakpoint, which
+   prevents it from filling the sidebar column width at md+. Override that. */
+@media (min-width: 768px) {
+  #offcanvas-facets,
+  #offcanvas-facets .offcanvas-body,
+  #offcanvas-facets .offcanvas-body > * {
+    width: 100%;
+    flex-grow: 1;
+  }
+}
+
+/* ============================================================
+   Facet "Browse all" modal
+   ============================================================ */
+
+/* Filter box: inset the search icon on the left of the input, matching the
+   main search box. The label is visually hidden (screen readers only). */
+.facet-suggest-group .facet-suggest {
+  padding-left: 2.25rem;
+}
+
+.facet-suggest-group .facet-suggest::placeholder {
+  color: var(--stanford-50-black);
+}
+
+.facet-suggest-group .facet-suggest-icon {
+  left: 0.75rem;
+  color: var(--stanford-black);
+  pointer-events: none;
+}
+
+/* A bit more space between the filter box and the paging/sort row. */
+.facet-pagination.top {
+  margin-top: 1.5rem;
+}
+
+/* Roomier padding inside the modal (header, body, footer). */
+#blacklight-modal:has(.facet-extended-list) {
+  --bs-modal-padding: 1.5rem;
+  --bs-modal-header-padding: 1rem 1.5rem;
+  --bs-modal-header-padding-x: 1.5rem;
+  --bs-modal-header-padding-y: 1rem;
+
+  .modal-header {
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* Undo the global absolute positioning of the close button so it flows inline
+     and stays on the same horizontal plane as the heading (as in the feedback
+     modal). Otherwise it stays pinned at the old 1rem offset. justify-content
+     on the header keeps the heading left and the X right. */
+  .blacklight-modal-close {
+    position: static;
+    margin: 0;
+  }
+
+  /* Shorter footer, with its top divider inset to line up with the modal
+     content instead of spanning the full width. margin-inline insets the whole
+     footer (and its border); zeroing the horizontal padding and footer gap
+     keeps the paging content aligned with the body. */
+  .modal-footer {
+    --bs-modal-footer-gap: 0;
+    margin-inline: var(--bs-modal-padding);
+    padding: 0.5rem 0;
+  }
+}
+
+/* Match the modal's facet row spacing to the main facet sidebar. Blacklight
+   defines this padding variable only inside .facets, so the modal list (outside
+   .facets) loses it and the rows collapse. Restore it here. */
+.facet-extended-list {
+  --bl-facet-value-padding-y: 0.2rem;
+}
+
+/* ============================================================
+   Date range facet
+   ============================================================ */
 
 #facet-date_range {
   .distribution,
