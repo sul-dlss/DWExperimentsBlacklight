@@ -27,6 +27,19 @@ en:
       facets:
         title: "Filters"
         mobile_button: "Filters"
+        more_html: Browse all <span class="visually-hidden">%{field_name}</span> »
+        suggest:
+          label: "Search %{field_label}"
+          placeholder: "Search %{field_label}"
+        sort:
+          # Menu item labels (note capitalization differs from the button).
+          index: "A-Z"
+          count: "Number of matches"
+          # Dropdown button: "Sort by " + the current selection (lowercase).
+          label: "Sort by %{selection}"
+          button:
+            index: "A-Z"
+            count: "number of matches"
       documents:
         aria:
           limit_search: "Filter your results"
