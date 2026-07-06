@@ -188,22 +188,21 @@
   color: var(--bs-badge-color);
 }
 
-/* Cardinal red button (stanford datasets facet) */
+/* Cardinal red button (stanford datasets facet). */
 .btn-stanford-cardinal {
-  --bs-btn-hover-border-color: var(--stanford-cardinal);
   --bs-btn-border-color: var(--stanford-cardinal);
-  --bs-btn-hover-bg: var(--stanford-cardinal);
   --bs-btn-color: var(--stanford-cardinal);
+  --bs-btn-hover-border-color: var(--stanford-cardinal);
+  --bs-btn-hover-bg: transparent;
+  --bs-btn-hover-color: var(--stanford-cardinal);
+  --bs-btn-active-border-color: var(--stanford-cardinal);
+  --bs-btn-active-bg: transparent;
+  --bs-btn-active-color: var(--stanford-cardinal);
+
+  text-decoration: none;
 
   &:hover {
-    --bs-btn-hover-color: #fff;
-  }
-
-  &.active {
-    --bs-btn-active-border-color: var(--stanford-cardinal);
-    --bs-btn-border-color: var(--stanford-cardinal);
-    --bs-btn-active-bg: var(--stanford-cardinal);
-    --bs-btn-active-color: #fff;
+    text-decoration: underline;
   }
 }
 
