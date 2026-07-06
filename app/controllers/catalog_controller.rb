@@ -9,6 +9,15 @@ class CatalogController < ApplicationController
     redirect_to root_path unless has_search_parameters?
   end
 
+  # The facet "Browse all" modal renders the facet's configured component. Reset
+  # it to Blacklight's default there so the sidebar facet-search box isn't
+  # rendered a second time inside the modal. blacklight_config is a per-request
+  # deep copy, so this mutation doesn't leak across requests.
+  before_action only: :facet do
+    facet = blacklight_config.facet_fields[params[:id]]
+    facet.component = Blacklight::Facets::ListComponent if facet&.component == Index::FacetSearchComponent
+  end
+
   # If you'd like to handle errors returned by Solr in a certain way,
   # you can use Rails rescue_from with a method you define in this controller,
   # uncomment:
@@ -62,6 +71,7 @@ class CatalogController < ApplicationController
     config.index.search_bar_component = Index::SearchBarComponent
     config.index.dropdown_component = Index::DropdownComponent
     config.index.facet_group_component = Index::FacetGroupComponent
+    config.index.facet_pagination_component = Index::FacetPaginationComponent
 
     # config.index.search_header_component = MyApp::SearchHeaderComponent
     # config.index.document_actions.delete(:bookmark)
@@ -126,12 +136,12 @@ class CatalogController < ApplicationController
 
     config.add_facet_field 'stanford_contributor_bsi', show: false
     config.add_facet_field 'access_ssi'
-    config.add_facet_field 'publisher_ssi', limit: 15 # rename Available at
-    config.add_facet_field 'contributors_ssim', limit: 15
-    config.add_facet_field 'formats_ssim', limit: 15
-    config.add_facet_field 'publication_year_isi', limit: 15
-    config.add_facet_field 'subjects_ssim', limit: 15
-    config.add_facet_field 'temporal_isim', limit: 15
+    config.add_facet_field 'publisher_ssi', limit: 6, component: Index::FacetSearchComponent
+    config.add_facet_field 'contributors_ssim', limit: 6, component: Index::FacetSearchComponent
+    config.add_facet_field 'formats_ssim', limit: 6, component: Index::FacetSearchComponent
+    config.add_facet_field 'publication_year_isi', limit: 6
+    config.add_facet_field 'subjects_ssim', limit: 6, component: Index::FacetSearchComponent
+    config.add_facet_field 'temporal_isim', limit: 6
 
     # Configured as facets for metadata record click to search functionality,
     # but not displayed in the facet sidebar
@@ -232,5 +242,20 @@ class CatalogController < ApplicationController
     # if the name of the solr.SuggestComponent provided in your solrconfig.xml is not the
     # default 'mySuggester', uncomment and provide it below
     # config.autocomplete_suggester = 'mySuggester'
+  end
+
+  # Turbo-frame endpoint backing the sidebar facet-search box: returns the facet
+  # values matching params[:query_fragment], scoped to the current search.
+  def facet_results
+    @facet = blacklight_config.facet_fields[params[:id]]
+    raise ActionController::RoutingError, 'Not Found' unless @facet
+
+    @response = search_service.facet_suggest_response(@facet.key, params[:query_fragment])
+    @display_facet = @response.aggregations[@facet.field]
+    @presenter = @facet.presenter.new(@facet, @display_facet, view_context)
+
+    respond_to do |format|
+      format.html { render layout: false }
+    end
   end
 end
