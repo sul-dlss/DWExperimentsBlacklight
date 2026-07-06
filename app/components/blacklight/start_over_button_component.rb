@@ -8,8 +8,12 @@ module Blacklight
 
     private
 
+    # Unlike upstream Blacklight, "Clear all" should land on the results page
+    # showing all records rather than the search landing page. Including a
+    # search_field makes has_search_parameters? true, so an empty query runs
+    # and returns everything.
     def start_over_path(query_params = params)
-      h = {}
+      h = { search_field: 'all_fields' }
       current_index_view_type = helpers.document_index_view_type(query_params)
       h[:view] = current_index_view_type unless current_index_view_type == helpers.default_document_index_view_type
 

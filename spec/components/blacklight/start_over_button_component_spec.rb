@@ -17,4 +17,8 @@ RSpec.describe Blacklight::StartOverButtonComponent, type: :component do
   it 'renders "Clear all" as the link text' do
     expect(page).to have_link('Clear all')
   end
+
+  it 'links to the results page showing all records' do
+    expect(page).to have_link('Clear all', href: /search_field=all_fields/)
+  end
 end
