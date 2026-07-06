@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center align-items-center mt-3 mb-3">
-  <a class="btn btn-outline-primary btn-stanford-cardinal text-decoration-none py-2 px-3 <%= 'active' if presenter.selected? %>" href="<%= presenter.href %>">
+  <a class="btn btn-outline-primary btn-stanford-cardinal py-2 px-3 <%= 'active' if presenter.selected? %>" href="<%= presenter.href %>">
     <input type="checkbox" class="me-2" style="pointer-events: none;" <%= 'checked' if presenter.selected? %>>
     <%= facet_field.label %>
   </a>
