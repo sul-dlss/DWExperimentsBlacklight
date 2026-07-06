@@ -1,0 +1,30 @@
+<%# Local override of BlacklightRangeLimit::RangeFormComponent. %>
+<%# Difference from upstream: the Apply button is inline and to the %>
+<%# right of the From/To inputs, and uses a solid primary button style. %>
+<%= form_tag search_action_path, method: :get, class: [@classes[:form], "range_#{@facet_field.key}"].join(' ') do %>
+  <%= render hidden_search_state %>
+
+  <div class="range-limit-input-group d-flex flex-wrap align-items-end gap-1">
+    <%= render BlacklightRangeLimit::RangeInputComponent.new(
+      input_name: begin_input_name,
+      input_value: begin_value_default,
+      label_text: t("blacklight.range_limit.range_begin_short"),
+      min_value: range_config[:min_value],
+      max_value: range_config[:max_value],
+      css_class: "range_begin") %>
+
+    <%= render BlacklightRangeLimit::RangeInputComponent.new(
+      input_name: end_input_name,
+      input_value: end_value_default,
+      label_text: t("blacklight.range_limit.range_end_short"),
+      min_value: range_config[:min_value],
+      max_value: range_config[:max_value],
+      css_class: "range_end") %>
+
+    <%= submit_tag t('blacklight.range_limit.submit_limit'), class: "submit btn btn-primary btn-sm", name: nil %>
+
+    <% if range_applied? %>
+      <%= link_to t('blacklight.range_limit.reset', default: 'Reset'), reset_path, class: "range-limit-reset btn btn-link btn-sm" %>
+    <% end %>
+  </div>
+<% end %>

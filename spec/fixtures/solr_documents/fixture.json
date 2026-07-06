@@ -34,7 +34,7 @@
     "rights_uris_sim": ["https://creativecommons.org/licenses/by/4.0/"],
     "affiliation_names_sim": ["My institution", "B. Parent Organization", "My contributor institution"],
     "variables_tsim": ["variable 1", "variable 2"],
-    "temporal_isim": [2022],
+    "temporal_isim": [1905, 1925, 1948, 1972, 1995, 2011, 2020],
     "courses_sim": ["CS246"],
     "provider_identifier_map_struct_ss": "{\"DataCite\":\"10.1234/5678\",\"Redivis\":\"redivis-123\"}",
     "geo_place_ssim": ["Vancouver, British Columbia, Canada", "Victoria, British Columbia, Canada"],

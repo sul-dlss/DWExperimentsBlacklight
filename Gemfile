@@ -68,6 +68,7 @@ end
 
 # Incorporating blacklight
 gem 'blacklight', '~> 9.0'
+gem 'blacklight_range_limit', '~> 9.2'
 
 # CSV needs to be added explicitly post ruby 3.4
 gem 'csv'

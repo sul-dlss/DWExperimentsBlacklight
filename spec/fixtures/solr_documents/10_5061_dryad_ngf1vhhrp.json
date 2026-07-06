@@ -11,6 +11,7 @@
   "subjects_ssim":["Physics","Inelastic X-ray scattering","Nonlinear X-ray dynamics","ISXRS", "EARTH SCIENCE","CRYOSPHERE","GLACIERS/ICE SHEETS","GLACIER MOTION/ICE SHEET MOTION", "GLACIER HYDROLOGY","GLACIER SURFACE PROCESSES","GLACIER BED PROCESSES","GLACIER THERMAL REGIME","GLACIER MASS BALANCE","GLACIER MODELING"],
   "url_ss":"http://datadryad.org/dataset/doi:10.5061/dryad.ngf1vhhrp",
   "publication_year_isi":2021,
+  "temporal_isim":[1918,1939,1961,1984,2003,2016],
   "publisher_ssi":" figshare ",
   "other_descriptions_tsim":["<p><strong>Supplemental Data</strong> </p>\r\n\r\n<p><b>Method e-1. </b>Tau PET imaging</p>\r\n\r\n<p><b>Figure e-1: </b>SAMS Participant Flowchart</p>\r\n\r\n<p><b>Figure e-2: </b>Gaussian Mixture Modelling</p>\r\n\r\n<p><b>Figure e-3: </b>CSF Proteins vs. Medial Temporal Lobe Tau<b>  </b></p>\r\n\r\n<p><b>Figure e-4: </b>CSF Ab<sub>42</sub> Sample Characteristics<b> </b></p>\r\n\r\n<p><b>Figure e-5: </b>CSF Proteins vs. Associative <i>d’ </i>by Stimulus Category</p>\r\n\r\n<p><b>Figure e-6: </b>CSF Proteins vs. Lure Discrimination Difference Scores</p>\r\n\r\n<p><b>Table e-1: </b>Relationships between CSF Proteins and Individual Standardized Delayed Recall Test Scores</p>\r\n"],
   "sizes_ssm":["1915023 KB"],

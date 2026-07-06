@@ -1,6 +1,12 @@
 en:
   blacklight:
     application_name: "DataWorks"
+    range_limit:
+      range_begin_short: "From"
+      range_end_short: "To"
+      submit_limit: "Apply"
+      reset: "Reset"
+      missing: "Year not specified"
     search:
       start_over: "Clear all"
       show:
