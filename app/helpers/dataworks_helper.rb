@@ -52,8 +52,7 @@ module DataworksHelper
   end
 
   def add_facet_link(facet_field, facet_value)
-    url = "/?f[#{facet_field}][]=#{facet_value}"
-    link_to(facet_value, url)
+    link_to(facet_value, search_action_path(search_state.filter(facet_field).add(facet_value)))
   end
 
   def url_link(args)
