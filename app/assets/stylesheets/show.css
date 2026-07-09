@@ -1,0 +1,161 @@
+/* 32px stack gap — between Bootstrap's gap-4 (24px) and gap-5 (48px). */
+.about-block {
+  gap: 2rem;
+}
+
+/* Match the sidebar's 32px stack gap between show-page metadata sections. */
+.document-metadata-stack {
+  gap: 2rem;
+}
+
+/* Drop the divider border below the lg breakpoint, so it only shows on wide layouts. */
+@media (max-width: 991.98px) {
+  .about-block {
+    border-left: 0 !important;
+  }
+}
+
+.dl-invert dt {
+  text-align: left;
+  font-weight: 600;
+  color: var(--stanford-100-black);
+}
+
+.dl-invert {
+  margin-bottom: 2px;
+  padding-bottom: 1px;
+}
+
+.provider-metadata {
+  padding-top: 1rem;
+  margin-top: 2rem;
+  border-top: 1px solid var(--stanford-20-black);
+}
+
+/* ORCID and ROR icons */
+.orcid-icon,
+.ror-icon {
+  width: 1rem;
+  height: 1rem;
+  vertical-align: sub;
+}
+
+/* Bump the ORCID logo slightly larger than the ROR icon for legibility. */
+.orcid-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Stanford profile badge: icon, label, and link (incl. its hover underline) */
+.profile,
+.profile:hover {
+  color: var(--stanford-cardinal);
+}
+
+/* Expand/collapse text styles */
+.expand-text--collapsed {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--expand-text-lines, 3);
+  line-clamp: var(--expand-text-lines, 3);
+  overflow: hidden;
+}
+
+.document-description [data-expand-text-target="content"] .rich-text:last-child > *:last-child,
+.content-summary [data-expand-text-target="content"] .rich-text:last-child > *:last-child {
+  margin-bottom: 0;
+}
+
+.document-description__toggle {
+  display: block;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* inline-flex so the toggle icon centers with its label; a Bootstrap d-inline-flex
+   utility would be !important and override the [hidden] attribute we toggle on. */
+.content-summary__control {
+  display: inline-flex;
+}
+
+.content-summary__control[hidden] {
+  display: none;
+}
+
+/* Take the icon off the text baseline so the filled circle isn't clipped at the bottom. */
+.content-summary__control svg {
+  display: block;
+}
+
+/* Contributors table: pin the column widths so they don't reflow when the
+   show more/less toggle reveals or hides rows (auto layout re-measures only
+   the in-flow rows, making the columns jump). */
+#contributors table {
+  table-layout: fixed;
+}
+
+#contributors td:first-child {
+  width: 40%;
+}
+
+/* Subject pills */
+.expand-items__toggle {
+  font-size: 0.875rem;
+  vertical-align: middle;
+}
+
+.document-subjects__pill {
+  --bs-badge-padding-x: 0.75rem;
+  --bs-badge-padding-y: 0.25rem;
+  background-color: var(--stanford-fog-light);
+  color: var(--bs-body-color);
+  font-weight: normal;
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+a.document-subjects__pill:hover,
+a.document-subjects__pill:focus {
+  background-color: var(--stanford-digital-blue);
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+/* Below lg, match the gap between show-document and the sidebar to the metadata section gap. */
+@media (max-width: 991.98px) {
+  .blacklight-catalog-show .page-sidebar {
+    margin-top: 2rem;
+  }
+}
+
+/* Above xl, widen the gap between the record and the sidebar on the show view. */
+@media (min-width: 1400px) {
+  .blacklight-catalog-show .show-document {
+    padding-right: 6rem;
+  }
+}
+
+/* Record toolbar (copy link, print) at the top of the show page */
+.record-toolbar {
+  --item-padding-x: 0.25rem;
+  --bs-link-decoration: none;
+  --bs-link-hover-color: var(--bs-btn-hover-color);
+
+  .btn {
+    --bs-btn-padding-x: var(--item-padding-x);
+  }
+
+  .nav-link {
+    --bs-nav-link-color: var(--stanford-80-black);
+    --bs-nav-link-padding-y: 0.25rem;
+    --bs-nav-link-padding-x: var(--item-padding-x);
+  }
+}
+
+/* Hide the record toolbar when printing */
+@media print {
+  .record-toolbar {
+    display: none !important;
+  }
+}
