@@ -75,6 +75,7 @@ gem 'csv'
 
 gem 'config'
 gem 'dotenv'
+gem 'okcomputer'
 gem 'openssl'
 gem 'pg'
 gem 'recaptcha', '~> 5.21'

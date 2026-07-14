@@ -30,13 +30,8 @@ Rails.application.routes.draw do
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
   resource :feedback_form, path: 'feedback', only: %i[new create]
   get 'feedback' => 'feedback_forms#new'
 
-  get 'up' => 'rails/health#show', as: :rails_health_check
-
-  # Defines the root path route ("/")
-  # root "posts#index"
+  # Health status is served by OkComputer at /status (see config/initializers/okcomputer.rb).
 end
