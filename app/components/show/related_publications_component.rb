@@ -45,7 +45,7 @@ module Show
     end
 
     def openalex_info_url
-      "#{root_path}openalex_info"
+      openalex_info_path
     end
 
     def render?
