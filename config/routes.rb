@@ -33,5 +33,6 @@ Rails.application.routes.draw do
   resource :feedback_form, path: 'feedback', only: %i[new create]
   get 'feedback' => 'feedback_forms#new'
 
-  # Health status is served by OkComputer at /status (see config/initializers/okcomputer.rb).
+  # Health status is served by OkComputer at /status (see config/initializers/okcomputer.rb)
+  post '/challenge', to: 'bot_challenge_page/bot_challenge_page#verify_challenge', as: :bot_detect_challenge
 end
