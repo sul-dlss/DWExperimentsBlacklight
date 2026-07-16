@@ -151,18 +151,43 @@
   vertical-align: top;
 }
 
-/* ORCID and ROR icons */
+/* ORCID, ROR, and profile icons, all sized to match. */
 .orcid-icon,
-.ror-icon {
-  width: 1rem;
-  height: 1rem;
+.ror-icon,
+.profile-icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
   vertical-align: sub;
 }
 
-/* Bump the ORCID logo slightly larger than the ROR icon for legibility. */
-.orcid-icon {
-  width: 1.25rem;
-  height: 1.25rem;
+/* Keep the ROR logo aligned with the affiliation text it follows. */
+.ror-icon {
+  vertical-align: middle;
+}
+
+/* ORCID and Stanford profile links in the contributor modal header.
+   The !important beats Bootstrap's link underline, which otherwise draws
+   on hover across the icon and its trailing whitespace */
+.orcid-record,
+.orcid-record:hover,
+.profile-link,
+.profile-link:hover {
+  text-decoration: none !important;
+}
+
+.orcid-record,
+.orcid-record:hover {
+  color: #5e7e09; /* darker than the ORCID iD green, for legible text */
+}
+
+.profile-link,
+.profile-link:hover {
+  color: var(--stanford-cardinal);
+}
+
+.orcid-record:hover .orcid-record__label,
+.profile-link:hover .profile-link__label {
+  text-decoration: underline;
 }
 
 /* Add breathing room between the label, filter badges, and start-over button */
@@ -237,12 +262,6 @@
 /* Mail icon */
 .mail {
   color: var(--stanford-digital-blue);
-}
-
-/* Stanford profile badge: icon, label, and link (incl. its hover underline) */
-.profile,
-.profile:hover {
-  color: var(--stanford-cardinal);
 }
 
 /* Move the modal close button to the top right corner */

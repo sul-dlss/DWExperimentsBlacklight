@@ -1,7 +1,7 @@
 <div id="contributors">
   <h2><%= t('.heading') %></h2>
   <div data-controller="expand-items" data-expand-items-max-rows-value="<%= VISIBLE_COUNT %>">
-    <table class="table">
+    <table class="table align-middle">
       <thead class="visually-hidden">
         <tr>
           <th scope="col"><%= t('.contributor') %></th>
@@ -11,7 +11,7 @@
       <tbody>
         <% contributors.each do |contributor| %>
           <tr data-expand-items-target="item">
-            <td class="py-1"><%= render_name(contributor) %><%= render_orcid_link(contributor) %><%= render_profile_link(contributor) %></td>
+            <td class="py-1"><%= render_name(contributor) %></td>
             <td class="py-1 small"><%= render_affiliations(contributor) %></td>
           </tr>
         <% end %>

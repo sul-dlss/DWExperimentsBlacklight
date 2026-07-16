@@ -1,7 +1,7 @@
 <div data-blacklight-modal="container">
   <div class="modal-header flex-wrap py-2">
     <h1 class="modal-title fs-3 mb-0 d-flex flex-wrap gap-3 align-items-center">
-      <span><%= @contributors.to_sentence %></span>
+      <span class="d-inline-flex flex-wrap align-items-center"><%= @contributors.to_sentence %><% if (record = contributor_record) %><%= render_orcid_link(record) %><%= render_profile_link(record) %><% end %></span>
       <% if datasets_count > 1 %>
         <%= link_to search_catalog_path(f: { @facet.key => @contributors }),
                     class: 'fs-6 fw-normal d-inline-flex align-items-center gap-1' do %>
@@ -15,13 +15,13 @@
     </button>
   </div>
   <div class="modal-body">
-    <% if @affiliations.present? %>
+    <% if affiliations.present? %>
       <section class="mb-3">
         <h2 class="fs-5"><%= t('.affiliations') %></h2>
-        <% @affiliations.each do |affiliation| %>
+        <% affiliations.each do |affiliation| %>
           <div class="mb-1">
             <span>
-              <%= affiliation['name'] %><%= render_ror_link(affiliation) %><% if (country = affiliation_country(affiliation)) %><span class="text-nowrap ms-3"><%= render Icons::GeoAltComponent.new(classes: 'me-1', aria_hidden: true) %><%= country %></span><% end %>
+              <%= affiliation['name'] %><%= render_ror_link(affiliation) %><% if (country = affiliation_country(affiliation)) %><span class="text-nowrap ms-2"><%= country %></span><% end %>
             </span>
             <% departments(affiliation).each do |department| %>
               <span class="text-muted d-block ms-2">

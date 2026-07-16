@@ -21,17 +21,24 @@ module ContributorModal
     @response = contributor_response(@facet, @contributors)
     @display_facet = @response.aggregations[@facet.key]
     @presenter = @facet.presenter.new(@facet, @display_facet, view_context)
-    @affiliations = contributor_affiliations
+    @document = contributor_document
+    @records = contributor_records
   end
 
-  # Affiliations recorded for the contributor(s) on the dataset being viewed.
-  def contributor_affiliations
-    return [] if params[:id].blank?
+  # The dataset being viewed, if any, for pulling contributor details.
+  def contributor_document
+    return if params[:id].blank?
 
-    document = search_service.fetch(params[:id])
-    @contributors.flat_map { |name| document.affiliations_for(name) }
+    search_service.fetch(params[:id])
   rescue Blacklight::Exceptions::RecordNotFound
-    []
+    nil
+  end
+
+  # Full contributor records (name, identifiers, affiliations) for the modal's contributor(s).
+  def contributor_records
+    return [] if @document.blank?
+
+    @document.contributors.select { |contributor| @contributors.include?(contributor['name']) }
   end
 
   def contributor_facet
