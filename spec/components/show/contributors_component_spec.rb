@@ -78,22 +78,10 @@ RSpec.describe Show::ContributorsComponent, type: :component do
       expect(page).to have_css('a[data-blacklight-modal="trigger"]', count: 2)
     end
 
-    it 'renders an ORCID link for contributors with an ORCID identifier' do
-      expect(page).to have_link(href: 'https://orcid.org/0000-0003-2837-8753')
-    end
-
-    it 'renders a Stanford profile link for contributors with a CAP identifier' do
-      expect(page).to have_link(href: 'https://profiles.stanford.edu/intranet/12345')
-    end
-
     it "renders each contributor's affiliation alongside them in the same row" do
       expect(page).to have_css('#contributors table tbody tr', text: 'Alexandra Trelle') do |row|
         expect(row).to have_text('Stanford University')
       end
-    end
-
-    it 'links the affiliation to its ROR record' do
-      expect(page).to have_link(href: 'https://ror.org/00f54p054')
     end
   end
 

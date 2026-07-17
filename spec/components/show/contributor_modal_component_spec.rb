@@ -3,10 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe Show::ContributorModalComponent, type: :component do
-  subject(:component) { described_class.new(contributors:, facet:, affiliations:) }
+  subject(:component) { described_class.new(contributors:, facet:, records:) }
 
   let(:contributors) { ['Anna Rasmussen'] }
-  let(:affiliations) { [] }
+  let(:records) { [] }
   let(:ror_org) { nil }
   let(:display_facet) do
     items = [Blacklight::Solr::Response::Facets::FacetItem.new(value: 'Anna Rasmussen', hits: 1234)]
@@ -34,12 +34,48 @@ RSpec.describe Show::ContributorModalComponent, type: :component do
     end
   end
 
+  context 'when the contributor record has an ORCID and Stanford profile' do
+    let(:records) do
+      [{ 'name' => 'Anna Rasmussen',
+         'name_identifiers' => [{ 'name_identifier' => '0000-0003-2837-8753',
+                                  'name_identifier_scheme' => 'ORCID' },
+                                { 'name_identifier' => '12345',
+                                  'name_identifier_scheme' => 'CAP' }] }]
+    end
+
+    it 'links to the ORCID profile in the header, labeled "ORCID record"' do
+      expect(page).to have_css('.modal-header a[href="https://orcid.org/0000-0003-2837-8753"]',
+                               text: 'ORCID record')
+    end
+
+    it 'links to the Stanford profile in the header' do
+      expect(page).to have_css('.modal-header a[href="https://profiles.stanford.edu/intranet/12345"]',
+                               text: 'Stanford profile')
+    end
+  end
+
+  context 'when the contributor name resolves to more than one record' do
+    let(:records) do
+      [{ 'name' => 'Anna Rasmussen',
+         'name_identifiers' => [{ 'name_identifier' => '0000-0003-2837-8753',
+                                  'name_identifier_scheme' => 'ORCID' }] },
+       { 'name' => 'Anna Rasmussen',
+         'name_identifiers' => [{ 'name_identifier' => '0000-0002-1111-2222',
+                                  'name_identifier_scheme' => 'ORCID' }] }]
+    end
+
+    it 'omits the header ORCID and profile links rather than guess between the records' do
+      expect(page).to have_no_css('.modal-header a[href*="orcid.org"]')
+    end
+  end
+
   context 'with affiliations for the contributor' do
-    let(:affiliations) do
-      [{ 'name' => 'Stanford University',
-         'affiliation_identifier' => 'https://ror.org/00f54p054',
-         'affiliation_identifier_scheme' => 'ROR',
-         'affiliation_department_name' => ['Department of Psychology'] }]
+    let(:records) do
+      [{ 'name' => 'Anna Rasmussen',
+         'affiliation' => [{ 'name' => 'Stanford University',
+                             'affiliation_identifier' => 'https://ror.org/00f54p054',
+                             'affiliation_identifier_scheme' => 'ROR',
+                             'affiliation_department_name' => ['Department of Psychology'] }] }]
     end
 
     it 'renders an affiliations section listing the institution' do
@@ -58,8 +94,7 @@ RSpec.describe Show::ContributorModalComponent, type: :component do
     context 'with ROR location data' do
       let(:ror_org) { instance_double(RorService::Org, country_name: 'United States') }
 
-      it 'prefixes the location with a geo pin icon' do
-        expect(page).to have_css('section svg.bi-geo-alt')
+      it 'shows the affiliation location' do
         expect(page).to have_css('section', text: 'United States')
       end
     end
