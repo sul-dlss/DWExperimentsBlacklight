@@ -1,0 +1,84 @@
+/* Results list */
+.documents-list {
+  --bl-results-document-margin-top: 0;
+  --bl-results-document-padding-top: 1rem;
+}
+
+.documents-list .document {
+  border-bottom: 1px solid var(--stanford-20-black);
+}
+
+.documents-list .document h3.document-title-heading {
+  --sul-header-font-size: 1.125rem;
+}
+
+/* Pagination */
+.paginate-section {
+  padding-bottom: 1rem;
+}
+
+.page-links {
+  margin-top: 1rem;
+  padding-bottom: 0;
+}
+
+.pagination-search-widgets .page-links {
+  margin-top: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.pagination-search-widgets {
+  border-bottom: 0;
+}
+
+/* Below lg, the search-results link + paging controls fill the row so the
+   record toolbar wraps onto its own centered line below them. At lg+ the
+   header row uses justify-content-between, so the toolbar aligns right. */
+@media (max-width: 991.98px) {
+  .search-context-nav {
+    width: 100%;
+  }
+}
+
+/* Applied filter constraints */
+
+/* Add breathing room between the label, filter badges, and start-over button */
+.constraints-container {
+  gap: 0.5rem 0.75rem;
+}
+
+/* Emphasize the "Your selections:" label */
+.constraints-label {
+  font-weight: 700;
+}
+
+/* Hide the "true" value and ">" when the Stanford authored facet is selected */
+.constraint.filter.filter-stanford_contributor_bsi .filter-value,
+.constraint.filter.filter-stanford_contributor_bsi .filter-name::after {
+  display: none;
+}
+
+/* Blacklight aligns the ">" separator icon with vertical-align: text-bottom,
+   which drops it below the text; center it vertically like the label */
+.applied-filter .constraint-value .filter-name::after {
+  vertical-align: middle;
+}
+
+/* Cardinal red button (stanford datasets facet). */
+.btn-stanford-cardinal {
+  --bs-btn-border-color: var(--stanford-cardinal);
+  --bs-btn-color: var(--stanford-cardinal);
+  --bs-btn-hover-border-color: var(--stanford-cardinal);
+  --bs-btn-hover-bg: transparent;
+  --bs-btn-hover-color: var(--stanford-cardinal);
+  --bs-btn-active-border-color: var(--stanford-cardinal);
+  --bs-btn-active-bg: transparent;
+  --bs-btn-active-color: var(--stanford-cardinal);
+
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
