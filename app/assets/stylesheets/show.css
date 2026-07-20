@@ -1,0 +1,200 @@
+/* Layout & spacing */
+
+/* 32px stack gap — between Bootstrap's gap-4 (24px) and gap-5 (48px). */
+.about-block {
+  gap: 2rem;
+}
+
+/* Match the sidebar's 32px stack gap between show-page metadata sections. */
+.document-metadata-stack {
+  gap: 2rem;
+}
+
+/* Drop the divider border below the lg breakpoint, so it only shows on wide layouts. */
+@media (max-width: 991.98px) {
+  .about-block {
+    border-left: 0 !important;
+  }
+}
+
+/* Below lg, match the gap between show-document and the sidebar to the metadata section gap. */
+@media (max-width: 991.98px) {
+  .blacklight-catalog-show .page-sidebar {
+    margin-top: 2rem;
+  }
+}
+
+/* Above xl, widen the gap between the record and the sidebar on the show view. */
+@media (min-width: 1400px) {
+  .blacklight-catalog-show .show-document {
+    padding-right: 6rem;
+  }
+}
+
+
+/* Metadata display */
+
+.dl-invert dt {
+  text-align: left;
+  font-weight: 600;
+  color: var(--stanford-100-black);
+}
+
+.dl-invert {
+  margin-bottom: 2px;
+  padding-bottom: 1px;
+}
+
+.provider-metadata {
+  padding-top: 1rem;
+  margin-top: 2rem;
+  border-top: 1px solid var(--stanford-20-black);
+}
+
+
+/* Contributor modal */
+
+/* ORCID, ROR, and profile icons, all sized to match. */
+.orcid-icon,
+.ror-icon,
+.profile-icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  vertical-align: sub;
+}
+
+/* Keep the ROR logo aligned with the affiliation text it follows. */
+.ror-icon {
+  vertical-align: middle;
+}
+
+.search-icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  vertical-align: sub;
+}
+
+.datasets-link {
+  position: relative;
+  top: 5px;
+  margin-bottom: 5px;
+}
+
+.contributor-modal-header .blacklight-modal-close {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.contributor-modal-title {
+  column-gap: 1rem;
+  row-gap: 0;
+  margin-right: 2.25rem;
+}
+
+.contributor-name-row {
+  column-gap: 1rem;
+  row-gap: 0.25rem;
+}
+
+/* ORCID and Stanford profile links in the contributor modal header.
+   The !important beats Bootstrap's link underline, which otherwise draws
+   on hover across the icon and its trailing whitespace */
+.orcid-record,
+.orcid-record:hover,
+.profile-link,
+.profile-link:hover {
+  text-decoration: none !important;
+}
+
+.orcid-record,
+.orcid-record:hover {
+  color: #5e7e09; /* darker than the ORCID iD green, for legible text */
+}
+
+.profile-link,
+.profile-link:hover {
+  color: var(--stanford-cardinal);
+}
+
+.orcid-record:hover .orcid-record__label,
+.profile-link:hover .profile-link__label {
+  text-decoration: underline;
+}
+
+
+/* Expand/collapse text */
+
+.expand-text--collapsed {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--expand-text-lines, 3);
+  line-clamp: var(--expand-text-lines, 3);
+  overflow: hidden;
+}
+
+.document-description [data-expand-text-target="content"] .rich-text:last-child > *:last-child,
+.expand-text [data-expand-text-target="content"] .rich-text:last-child > *:last-child {
+  margin-bottom: 0;
+}
+
+.document-description__toggle {
+  display: block;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* inline-flex so the toggle icon centers with its label; a Bootstrap d-inline-flex
+   utility would be !important and override the [hidden] attribute we toggle on. */
+.expand-text__control {
+  display: inline-flex;
+}
+
+.expand-text__control[hidden] {
+  display: none;
+}
+
+/* Take the icon off the text baseline so the filled circle isn't clipped at the bottom. */
+.expand-text__control svg {
+  display: block;
+}
+
+
+/* Contributors table */
+
+/* Contributors table: pin the column widths so they don't reflow when the
+   show more/less toggle reveals or hides rows (auto layout re-measures only
+   the in-flow rows, making the columns jump). */
+#contributors table {
+  table-layout: fixed;
+}
+
+#contributors td:first-child {
+  width: 40%;
+}
+
+
+/* Record toolbar */
+
+/* Record toolbar (copy link, print) at the top of the show page */
+.record-toolbar {
+  --item-padding-x: 0.25rem;
+  --bs-link-decoration: none;
+  --bs-link-hover-color: var(--bs-btn-hover-color);
+
+  .btn {
+    --bs-btn-padding-x: var(--item-padding-x);
+  }
+
+  .nav-link {
+    --bs-nav-link-color: var(--stanford-80-black);
+    --bs-nav-link-padding-y: 0.25rem;
+    --bs-nav-link-padding-x: var(--item-padding-x);
+  }
+}
+
+/* Hide the record toolbar when printing */
+@media print {
+  .record-toolbar {
+    display: none !important;
+  }
+}
