@@ -4,7 +4,7 @@
 # lock "~> 3.18.1"
 
 set :application, 'dataworks-ui'
-set :repo_url, 'git@github.com:sul-dlss/DWExperimentsBlacklight.git'
+set :repo_url, 'git@github.com:sul-dlss/dataworks-ui.git'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
