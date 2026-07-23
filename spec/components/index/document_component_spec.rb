@@ -14,9 +14,10 @@ RSpec.describe Index::DocumentComponent, type: :component do
   let(:presented_document) do
     SolrDocument.new(
       id: 'abc-123',
+      title_html_tsm: 'My Dataset',
       title_tsim: 'My Dataset',
       access_ssi: 'restricted',
-      descriptions_tsim: 'A description of the dataset.',
+      descriptions_html_tsm: 'A description of the dataset.',
       url_ss: 'https://example.com/dataset'
     )
   end
